@@ -1,0 +1,50 @@
+src/features/habits/utils/streak.js
+  s_4987b198c9213b::t_23b3aa3f93dd2b 1-200
+src/features/habits/components/WeeklySummaryCard.jsx
+  s_4987b198c9213b::t_13e4c5c929de8c 1-5,7-36,38,41,54-67,69-89,134-180
+  s_4987b198c9213b::t_d1b944ab5aae95 6,37,39-40,42-53,68,90-133,181-184
+src/features/habits/components/ContributionGraph.jsx
+  s_4987b198c9213b::t_2ca44e03164d24 1-38
+src/App.jsx
+  s_4987b198c9213b::t_b167168b9d1e82 13,24,34,54-57,145-151,169-171
+src/features/habits/index.jsx
+  s_4987b198c9213b::t_22e93e55bb7ed6 1-69,71-196
+  s_4987b198c9213b::t_107ff27a51ca20 70
+src/features/habits/HabitDetail.jsx
+  s_4987b198c9213b::t_4ef24a971a4f65 1-162
+src/features/habits/utils/notifications.js
+  s_4987b198c9213b::t_2a9fa223d2a4b1 1-44
+src/shared/components/BottomNav.jsx
+  s_4987b198c9213b::t_1831e455f9b409 5,8
+  s_4987b198c9213b::t_2707ce04cf7361 30-32,37
+src/features/habits/components/AddHabitSheet.jsx
+  s_4987b198c9213b::t_695ae8adb1112b 1-229
+src/features/training/index.jsx
+  s_4987b198c9213b::t_b1b95bc524cf9e 417
+  s_4987b198c9213b::t_11d9d65c690756 531-543
+  s_4987b198c9213b::t_9ae7439b4f07a2 7-8
+src/features/habits/components/HabitsSnapshot.jsx
+  s_4987b198c9213b::t_3cf4dfdc636d67 1-56
+src/features/habits/data/suggestedHabits.js
+  s_4987b198c9213b::t_04ddff534aca77 1-43
+src/features/habits/components/HabitCard.jsx
+  s_4987b198c9213b::t_af0adcf4b39dbc 1-102
+src/features/habits/hooks/useHabits.js
+  s_4987b198c9213b::t_3eca8600d26797 1-151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "41fac2ee325ed4d9498e439fa8caa78ad23cbdb6",
+  "prompts": {},
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
