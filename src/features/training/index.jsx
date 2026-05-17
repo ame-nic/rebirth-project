@@ -239,7 +239,7 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
 
   return (
     <div style={{ background: C.bg, minHeight: "100vh", color: C.txt, fontFamily: FONT, maxWidth: 430, margin: "0 auto" }}>
-      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "16px 18px" }}>
+      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "calc(16px + env(safe-area-inset-top)) 18px 16px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
           <div>
             <div style={{ ...label, marginBottom: 2 }}>In allenamento</div>
@@ -480,7 +480,7 @@ export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, ha
         />
       )}
 
-      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "20px 18px 16px" }}>
+      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "calc(20px + env(safe-area-inset-top)) 18px 16px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
           <div style={{ fontSize: 10, color: C.txtSec, letterSpacing: 1.5, fontFamily: FONT, fontWeight: 500, textTransform: "uppercase" }}>
             <span style={{ color: C.A }}>§</span>&nbsp;&nbsp;{DAY_IT[new Date().getDay()].toUpperCase()} · {new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long" })}

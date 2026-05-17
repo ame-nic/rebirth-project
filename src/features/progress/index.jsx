@@ -59,7 +59,7 @@ export default function ProgressTab({ workoutLog, readiness, growth }) {
 
   return (
     <div>
-      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "20px 18px 16px" }}>
+      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "calc(20px + env(safe-area-inset-top)) 18px 16px" }}>
         <div style={{ ...label, marginBottom: 6 }}>
           <span style={{ color: C.A }}>§</span>&nbsp;&nbsp;Progressi
         </div>

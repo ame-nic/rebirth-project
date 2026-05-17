@@ -82,7 +82,7 @@ export default function HabitDetail({ habit, logs, onClose, onToggle, onSkip, on
 
   return (
     <div style={{ background: C.bg, minHeight: "100vh", color: C.txt, fontFamily: FONT, maxWidth: 430, margin: "0 auto" }}>
-      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "16px 18px", display: "flex", alignItems: "center", gap: 14 }}>
+      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "calc(16px + env(safe-area-inset-top)) 18px 16px", display: "flex", alignItems: "center", gap: 14 }}>
         <button onClick={onClose} style={{ background: "none", border: "none", color: C.txtSec, fontSize: 22, cursor: "pointer", padding: 0, lineHeight: 1 }}>
           <i className="ph ph-arrow-left" />
         </button>

@@ -169,7 +169,7 @@ export default function NutritionTab() {
   if (selectedRecipe) {
     return (
       <div>
-        <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "16px 18px", display: "flex", gap: 14, alignItems: "center" }}>
+        <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "calc(16px + env(safe-area-inset-top)) 18px 16px", display: "flex", gap: 14, alignItems: "center" }}>
           <button onClick={() => setSelectedRecipe(null)} style={{ background: "none", border: "none", color: C.txtSec, fontSize: 22, cursor: "pointer", padding: 0, lineHeight: 1 }}>
             <i className="ph ph-arrow-left" />
           </button>
@@ -218,7 +218,7 @@ export default function NutritionTab() {
   /* ── Header ──────────────────────────────────────────────────────────── */
   return (
     <div>
-      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "20px 18px 16px" }}>
+      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "calc(20px + env(safe-area-inset-top)) 18px 16px" }}>
         <div style={{ ...label, marginBottom: 6 }}>
           <span style={{ color: C.A }}>§</span>&nbsp;&nbsp;Nutrizione
         </div>
