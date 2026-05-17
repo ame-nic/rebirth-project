@@ -7,6 +7,8 @@ import { SESSIONS, getTodaySession } from "./data.js";
 import HabitsSnapshot from "../habits/components/HabitsSnapshot.jsx";
 import WeeklySummaryCard from "../habits/components/WeeklySummaryCard.jsx";
 import HealthCard from "../health/components/HealthCard.jsx";
+import ReadinessCard from "../wellness/ReadinessCard.jsx";
+import ExpertAssessmentCard from "../wellness/components/ExpertAssessmentCard.jsx";
 
 function computeStreak(workoutLog) {
   let streak = 0;
@@ -415,7 +417,7 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
   );
 }
 
-export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits, health, onOpenHealth }) {
+export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits, health, onOpenHealth, readiness }) {
   const todaySession = getTodaySession();
   const today = todayStr();
   const todayLog = workoutLog.find((w) => w.date === today);
@@ -528,6 +530,22 @@ export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, ha
             </div>
           ))}
         </div>
+
+        {readiness && (
+          <ReadinessCard
+            readiness={readiness}
+            healthToday={health?.today}
+            baseline={readiness.baseline}
+          />
+        )}
+
+        {readiness && (
+          <ExpertAssessmentCard
+            assessment={readiness.assessment}
+            loading={readiness.loadingAI}
+            onRequest={readiness.requestAssessment}
+          />
+        )}
 
         {health && (
           <HealthCard

@@ -5,8 +5,9 @@ import { storageLoad, storageSave } from "../../shared/storage/index.js";
 import { exportBackup } from "../../shared/storage/export.js";
 import { todayStr, fmtDate, getWeekStart } from "../../shared/utils/date.js";
 import HealthTrends from "../health/components/HealthTrends.jsx";
+import ExpertAssessmentCard from "../wellness/components/ExpertAssessmentCard.jsx";
 
-export default function ProgressTab({ workoutLog, health }) {
+export default function ProgressTab({ workoutLog, health, readiness }) {
   const [weights, setWeights]     = useState([]);
   const [newW, setNewW]           = useState("95");
   const [showInput, setShowInput] = useState(false);
@@ -141,6 +142,14 @@ export default function ProgressTab({ workoutLog, health }) {
             ))}
           </div>
         </div>
+
+        {readiness && (
+          <ExpertAssessmentCard
+            assessment={readiness.assessment}
+            loading={readiness.loadingAI}
+            onRequest={readiness.requestAssessment}
+          />
+        )}
 
         {health && health.snapshots && health.snapshots.length > 0 && (
           <HealthTrends snapshots={health.snapshots} />

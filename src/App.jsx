@@ -12,6 +12,7 @@ import { fetchSourceItems } from "./features/daily-feed/services/fetchSource.js"
 import { fetchWeather } from "./features/daily-feed/services/fetchWeather.js";
 import { useHabits } from "./features/habits/hooks/useHabits.js";
 import { useHealth } from "./features/health/hooks/useHealth.js";
+import { useReadiness } from "./features/wellness/hooks/useReadiness.js";
 
 // Each tab module is its own chunk. Recharts (Progress, ~150 KB) and
 // the recipe engine (Nutrition) are the biggest wins from splitting.
@@ -55,11 +56,12 @@ export default function App() {
   const [loading,       setLoading]       = useState(true);
   const [healthOpen,    setHealthOpen]    = useState(false);
 
-  // Feed / Habits / Health all live at root: cross-tab affordances need
-  // their state regardless of which tab is active.
-  const feed   = useFeed();
-  const habits = useHabits();
-  const health = useHealth();
+  // Feed / Habits / Health / Readiness all live at root: cross-tab
+  // affordances need their state regardless of which tab is active.
+  const feed      = useFeed();
+  const habits    = useHabits();
+  const health    = useHealth();
+  const readiness = useReadiness({ workoutLog, habits: habits.habits });
 
   useEffect(() => {
     storageLoad("workoutLog_v5", []).then((v) => {
@@ -169,6 +171,7 @@ export default function App() {
               onOpenHabits={() => setTab("abitudini")}
               health={health}
               onOpenHealth={() => setHealthOpen(true)}
+              readiness={readiness}
             />
           </ErrorBoundary>
         )}
@@ -184,7 +187,7 @@ export default function App() {
         )}
         {tab === "progressi" && (
           <ErrorBoundary label="Progressi">
-            <ProgressTab workoutLog={workoutLog} health={health} />
+            <ProgressTab workoutLog={workoutLog} health={health} readiness={readiness} />
           </ErrorBoundary>
         )}
         {tab === "abitudini" && (
