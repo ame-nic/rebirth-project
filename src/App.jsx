@@ -13,6 +13,7 @@ import { fetchWeather } from "./features/daily-feed/services/fetchWeather.js";
 import { useHabits } from "./features/habits/hooks/useHabits.js";
 import { useHealth } from "./features/health/hooks/useHealth.js";
 import { useReadiness } from "./features/wellness/hooks/useReadiness.js";
+import { useGrowth } from "./features/growth/hooks/useGrowth.js";
 
 // Each tab module is its own chunk. Recharts (Progress, ~150 KB) and
 // the recipe engine (Nutrition) are the biggest wins from splitting.
@@ -62,6 +63,7 @@ export default function App() {
   const habits    = useHabits();
   const health    = useHealth();
   const readiness = useReadiness({ workoutLog, habits: habits.habits });
+  const growth    = useGrowth();
 
   useEffect(() => {
     storageLoad("workoutLog_v5", []).then((v) => {
@@ -182,12 +184,12 @@ export default function App() {
         )}
         {tab === "feed" && (
           <ErrorBoundary label="Feed">
-            <FeedTab feed={feed} />
+            <FeedTab feed={feed} savedArticleIds={growth.savedArticleIds} />
           </ErrorBoundary>
         )}
         {tab === "progressi" && (
           <ErrorBoundary label="Progressi">
-            <ProgressTab workoutLog={workoutLog} health={health} readiness={readiness} />
+            <ProgressTab workoutLog={workoutLog} health={health} readiness={readiness} growth={growth} />
           </ErrorBoundary>
         )}
         {tab === "abitudini" && (

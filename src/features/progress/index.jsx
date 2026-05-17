@@ -7,11 +7,12 @@ import { todayStr, fmtDate, getWeekStart } from "../../shared/utils/date.js";
 import HealthTrends from "../health/components/HealthTrends.jsx";
 import ExpertAssessmentCard from "../wellness/components/ExpertAssessmentCard.jsx";
 import Measurements from "./Measurements.jsx";
+import Growth from "../growth/Growth.jsx";
 import { useMeasurements } from "./hooks/useMeasurements.js";
 
 const MEASUREMENT_REMINDER_DAYS = 28;
 
-export default function ProgressTab({ workoutLog, health, readiness }) {
+export default function ProgressTab({ workoutLog, health, readiness, growth }) {
   const [weights, setWeights]     = useState([]);
   const [newW, setNewW]           = useState("95");
   const [showInput, setShowInput] = useState(false);
@@ -70,7 +71,7 @@ export default function ProgressTab({ workoutLog, health, readiness }) {
           the 4-tab layout in the spec would split the Generale content
           further (Peso / Allenamento / etc.). */}
       <div style={{ display: "flex", background: C.surf, borderBottom: `1px solid ${C.border}` }}>
-        {[["generale", "Generale"], ["misurazioni", "Misurazioni"]].map(([id, lbl]) => (
+        {[["generale", "Generale"], ["misurazioni", "Misurazioni"], ["crescita", "Crescita"]].map(([id, lbl]) => (
           <button
             key={id}
             onClick={() => setView(id)}
@@ -118,6 +119,15 @@ export default function ProgressTab({ workoutLog, health, readiness }) {
       {view === "misurazioni" ? (
         <div style={{ padding: "14px 14px 0" }}>
           <Measurements measurementsApi={measurementsApi} />
+          <div style={{ height: 12 }} />
+        </div>
+      ) : view === "crescita" ? (
+        <div style={{ padding: "14px 14px 0" }}>
+          {growth ? <Growth growth={growth} /> : (
+            <div style={{ color: C.txtMute, fontSize: 13, textAlign: "center", padding: "32px 0" }}>
+              Caricamento…
+            </div>
+          )}
           <div style={{ height: 12 }} />
         </div>
       ) : (

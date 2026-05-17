@@ -10,7 +10,7 @@ function fullDate() {
   return new Date().toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" });
 }
 
-export default function FeedTab({ feed }) {
+export default function FeedTab({ feed, savedArticleIds }) {
   const [showManager, setShowManager] = useState(false);
   const {
     sources, items, weather,
@@ -24,8 +24,15 @@ export default function FeedTab({ feed }) {
   // unrelated state changes.
   const handleRead = useCallback((id) => markRead(id), [markRead]);
   const renderItem = useCallback(
-    (item) => <FeedItemCard key={item.id} item={item} onRead={handleRead} />,
-    [handleRead],
+    (item) => (
+      <FeedItemCard
+        key={item.id}
+        item={item}
+        onRead={handleRead}
+        saved={savedArticleIds?.has(item.id) ?? false}
+      />
+    ),
+    [handleRead, savedArticleIds],
   );
 
   if (showManager) {
