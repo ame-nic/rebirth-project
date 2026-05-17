@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, Cell, CartesianGrid } from "recharts";
-import { C, FONT, card, label, pill } from "../../shared/design/tokens.js";
+import { C, FONT, btn, card, label, pill } from "../../shared/design/tokens.js";
 import { storageLoad, storageSave } from "../../shared/storage/index.js";
+import { exportBackup } from "../../shared/storage/export.js";
 import { todayStr, fmtDate, getWeekStart } from "../../shared/utils/date.js";
 
 export default function ProgressTab({ workoutLog }) {
@@ -138,6 +139,20 @@ export default function ProgressTab({ workoutLog }) {
               </div>
             ))}
           </div>
+        </div>
+
+        <div style={card()}>
+          <div style={{ ...label, marginBottom: 8 }}>Backup</div>
+          <div style={{ fontSize: 12, color: C.txtSec, lineHeight: 1.6, marginBottom: 12 }}>
+            I dati sono salvati solo su questo dispositivo. Esporta un backup periodico per non perderli.
+          </div>
+          <button
+            onClick={exportBackup}
+            style={{ ...btn(C.surfHi, C.txt), border: `1px solid ${C.border}`, fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+          >
+            <i className="ph ph-download-simple" style={{ fontSize: 14 }} />
+            Esporta dati
+          </button>
         </div>
 
         {workoutLog.length > 0 && (

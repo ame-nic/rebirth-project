@@ -22,7 +22,10 @@ export const FONT = "'JetBrains Mono', ui-monospace, monospace";
 
 export const appWrap = {
   background: C.bg, minHeight: "100vh", color: C.txt,
-  fontFamily: FONT, maxWidth: 430, margin: "0 auto", paddingBottom: 76,
+  fontFamily: FONT, maxWidth: 430, margin: "0 auto",
+  // 76px clears the BottomNav; env() adds the iOS home indicator inset
+  // so content doesn't scroll under the gesture bar on notched iPhones.
+  paddingBottom: "calc(76px + env(safe-area-inset-bottom))",
 };
 
 export const card = (borderColor = C.border, bgOverride = null) => ({

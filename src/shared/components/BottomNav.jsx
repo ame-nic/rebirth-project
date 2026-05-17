@@ -14,6 +14,7 @@ export default function BottomNav({ tab, onChange, feedUnread = 0 }) {
         position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)",
         width: "100%", maxWidth: 430, background: C.surf, borderTop: `1px solid ${C.border}`,
         display: "flex", zIndex: 100,
+        paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
       {TABS.map(([id, icon, lbl]) => (

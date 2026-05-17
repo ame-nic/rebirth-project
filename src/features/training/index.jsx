@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { C, FONT, btn, label, pill } from "../../shared/design/tokens.js";
 import { DAY_IT, todayStr, todayDOW, getWeekStart } from "../../shared/utils/date.js";
 import ConfirmModal from "../../shared/components/ConfirmModal.jsx";
@@ -179,7 +179,6 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
   );
   const [expandedIdx, setExpandedIdx] = useState(0);
   const [restTimer, setRestTimer] = useState(null);
-  const timerRef = useRef(null);
   // Original-id → variant. Session-scoped only; resets when ActiveWorkout
   // unmounts (i.e. next session start).
   const [swappedExercises, setSwappedExercises] = useState({});
@@ -198,12 +197,17 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
   const doneSets = logs.reduce((s, ex) => s + ex.setsDone.filter(Boolean).length, 0);
   const pct = Math.round((doneSets / totalSets) * 100);
 
+  // Single interval, started when the timer becomes active and torn down
+  // when it becomes inactive — the boolean dep keeps the interval from
+  // restarting on every tick (which the previous setTimeout pattern did).
+  const timerActive = restTimer !== null;
   useEffect(() => {
-    if (restTimer === null) return;
-    if (restTimer <= 0) { setRestTimer(null); return; }
-    timerRef.current = setTimeout(() => setRestTimer((t) => t - 1), 1000);
-    return () => clearTimeout(timerRef.current);
-  }, [restTimer]);
+    if (!timerActive) return;
+    const id = setInterval(() => {
+      setRestTimer((t) => (t == null || t <= 1) ? null : t - 1);
+    }, 1000);
+    return () => clearInterval(id);
+  }, [timerActive]);
 
   function toggleSet(exIdx, setIdx) {
     const updated = logs.map((ex, i) => {

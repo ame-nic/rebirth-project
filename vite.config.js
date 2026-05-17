@@ -7,8 +7,10 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: 'auto',
+      // 'prompt' lets the React hook decide when to apply updates —
+      // user sees a "Nuova versione" toast and chooses to reload.
+      registerType: 'prompt',
+      injectRegister: false,
       pwaAssets: {
         config: true,
         overrideManifestIcons: true,

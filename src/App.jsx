@@ -3,6 +3,9 @@ import { C, FONT, appWrap } from "./shared/design/tokens.js";
 import { todayStr } from "./shared/utils/date.js";
 import { storageLoad, storageSave } from "./shared/storage/index.js";
 import BottomNav from "./shared/components/BottomNav.jsx";
+import ErrorBoundary from "./shared/components/ErrorBoundary.jsx";
+import Toast from "./shared/components/Toast.jsx";
+import UpdatePrompt from "./shared/components/UpdatePrompt.jsx";
 import TodayTab, { ActiveWorkout } from "./features/training/index.jsx";
 import NutritionTab from "./features/nutrition/index.jsx";
 import ProgressTab from "./features/progress/index.jsx";
@@ -57,21 +60,45 @@ export default function App() {
 
   if (activeSession) {
     return (
-      <ActiveWorkout
-        session={activeSession}
-        onFinish={handleFinish}
-        onCancel={() => setActiveSession(null)}
-      />
+      <>
+        <ErrorBoundary label="Allenamento">
+          <ActiveWorkout
+            session={activeSession}
+            onFinish={handleFinish}
+            onCancel={() => setActiveSession(null)}
+          />
+        </ErrorBoundary>
+        <Toast />
+        <UpdatePrompt />
+      </>
     );
   }
 
   return (
     <div style={appWrap}>
-      {tab === "oggi"       && <TodayTab workoutLog={workoutLog} onStartWorkout={setActiveSession} onLogCalcetto={handleCalcetto} />}
-      {tab === "nutrizione" && <NutritionTab />}
-      {tab === "feed"       && <FeedTab feed={feed} />}
-      {tab === "progressi"  && <ProgressTab workoutLog={workoutLog} />}
+      {tab === "oggi" && (
+        <ErrorBoundary label="Oggi">
+          <TodayTab workoutLog={workoutLog} onStartWorkout={setActiveSession} onLogCalcetto={handleCalcetto} />
+        </ErrorBoundary>
+      )}
+      {tab === "nutrizione" && (
+        <ErrorBoundary label="Nutrizione">
+          <NutritionTab />
+        </ErrorBoundary>
+      )}
+      {tab === "feed" && (
+        <ErrorBoundary label="Feed">
+          <FeedTab feed={feed} />
+        </ErrorBoundary>
+      )}
+      {tab === "progressi" && (
+        <ErrorBoundary label="Progressi">
+          <ProgressTab workoutLog={workoutLog} />
+        </ErrorBoundary>
+      )}
       <BottomNav tab={tab} onChange={setTab} feedUnread={feed.unreadCount} />
+      <Toast />
+      <UpdatePrompt />
     </div>
   );
 }

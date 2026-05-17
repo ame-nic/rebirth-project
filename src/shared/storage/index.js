@@ -3,6 +3,8 @@
    window.storage host API so future swaps (IndexedDB, remote sync) don't
    require touching every call site. */
 
+import { toast } from "../toast.js";
+
 export const storage = {
   get: async (key) => {
     const v = localStorage.getItem(key);
@@ -25,10 +27,25 @@ export async function storageLoad(key, fallback) {
   }
 }
 
+// Avoid spamming the same key on every retry (e.g. set-state-on-tick loops).
+const reportedFailures = new Set();
+
 export async function storageSave(key, val) {
   try {
     await storage.set(key, JSON.stringify(val));
-  } catch {
-    /* quota exceeded, private mode, etc. — drop silently */
+    if (reportedFailures.has(key)) reportedFailures.delete(key); // recovered
+    return true;
+  } catch (err) {
+    if (!reportedFailures.has(key)) {
+      reportedFailures.add(key);
+      const isQuota = err?.name === "QuotaExceededError" || /quota/i.test(err?.message || "");
+      toast(
+        isQuota
+          ? "Spazio esaurito. Esporta i dati e svuota la cache del browser."
+          : "Salvataggio non riuscito. Modalità privata?",
+        "error",
+      );
+    }
+    return false;
   }
 }
