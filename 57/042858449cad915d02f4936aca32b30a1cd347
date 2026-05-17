@@ -1,0 +1,62 @@
+src/features/training/index.jsx
+  s_4987b198c9213b::t_68ec4600b167dd 423
+  s_4987b198c9213b::t_3f36bec687ce5e 558
+src/features/progress/index.jsx
+  s_4987b198c9213b::t_54a1db774494ff 14
+src/features/wellness/ReadinessCard.jsx
+  s_4987b198c9213b::t_300c929852619a 105-109
+  s_4987b198c9213b::t_f4a08b8b624e14 25
+  s_4987b198c9213b::t_05970393f0f2ba 64-65,67
+src/features/wellness/services/expertAssessment.js
+  s_4987b198c9213b::t_e6bb0705520106 54
+src/features/wellness/hooks/useReadiness.js
+  s_4987b198c9213b::t_88480e0fbff3d6 28,37,39-40,68
+docs/FEATURES.md
+  s_4987b198c9213b::t_318e747b5f2d12 29,31-34
+  s_4987b198c9213b::t_753ce5febe7d69 55,57-68
+docs/DATA_MODEL.md
+  s_4987b198c9213b::t_fcfc2d0e4874fa 126-134,139-140
+src/shared/storage/migrationRunner.js
+  s_4987b198c9213b::t_b191948639cf28 17
+  s_4987b198c9213b::t_6bc1415d366e58 46-73
+src/shared/storage/index.js
+  s_4987b198c9213b::t_64f846b269142e 32
+docs/MIGRATIONS.md
+  s_4987b198c9213b::t_dc23668aa0a4e9 23-26
+CLAUDE.md
+  s_4987b198c9213b::t_22b0c0b7d54a66 298
+docs/diagrams/capability-map.drawio
+  s_4987b198c9213b::t_eb34d7793f7b97 84
+src/features/wellness/services/assessmentData.js
+  s_4987b198c9213b::t_414a4cb8b63024 107-113,115-121
+docs/diagrams/c4-containers.drawio
+  s_4987b198c9213b::t_c2ce238b3a6eba 51
+docs/ARCHITECTURE.md
+  s_4987b198c9213b::t_1323fc11c4dffa 42-46
+  s_4987b198c9213b::t_07066beefd0db0 120-144,151
+docs/diagrams/architecture-overview.drawio
+  s_4987b198c9213b::t_2d6ff5bf04ad76 68,71
+docs/diagrams/c4-context.drawio
+  s_4987b198c9213b::t_dc890f56b78708 34
+src/features/wellness/utils/score.js
+  s_4987b198c9213b::t_198532e5201953 3-9,11,24,28,36,38,40,42-43,53
+src/App.jsx
+  s_4987b198c9213b::t_a96401fcf64b5e 63
+  s_4987b198c9213b::t_658f7b0672511e 235
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "57042858449cad915d02f4936aca32b30a1cd347",
+  "prompts": {},
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
