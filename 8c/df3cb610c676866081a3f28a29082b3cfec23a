@@ -1,0 +1,50 @@
+src/shared/storage/migrations.js
+  s_4987b198c9213b::t_adb42d062b3cc3 1-19
+docs/DEPLOYMENT.md
+  s_4987b198c9213b::t_982277cf85b8e3 1-70
+docs/MIGRATIONS.md
+  s_4987b198c9213b::t_5f830ccc375023 1-46
+docs/diagrams/architecture-overview.drawio
+  s_4987b198c9213b::t_d682e4b37df45e 1-119
+src/App.jsx
+  s_4987b198c9213b::t_d46178aba532c0 93-96
+  s_4987b198c9213b::t_5e6589f8779c07 5
+docs/diagrams/capability-map.drawio
+  s_4987b198c9213b::t_da71fd766fe032 1-120
+CLAUDE.md
+  s_4987b198c9213b::t_644d8ec344f543 1,3-5,7,9,11-14,16,18,20-66,70-79,81-89,91-107,110-248,250-262,264,266,268-274,276,278,280-285,287,289,291-292,294-297,299-300
+docs/README.md
+  s_4987b198c9213b::t_8eba69788d0946 1-22
+docs/diagrams/c4-containers.drawio
+  s_4987b198c9213b::t_d811e179d7ac9f 1-107
+prompts/README.md
+  s_4987b198c9213b::t_224c595e3a105d 1-51
+src/shared/storage/migrationRunner.js
+  s_4987b198c9213b::t_c706db73ca4d45 1-71
+docs/API.md
+  s_4987b198c9213b::t_7c047f8e3cc195 1-98
+docs/ARCHITECTURE.md
+  s_4987b198c9213b::t_ce4762f2dd0cb9 1-122
+docs/FEATURES.md
+  s_4987b198c9213b::t_380c50f6073e67 1-74
+docs/DATA_MODEL.md
+  s_4987b198c9213b::t_b852bb5fbda6fd 1-274
+docs/diagrams/c4-context.drawio
+  s_4987b198c9213b::t_9e486ac1444289 1-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "8cdf3cb610c676866081a3f28a29082b3cfec23a",
+  "prompts": {},
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
