@@ -1,0 +1,76 @@
+src/features/nutrition/engine/constants.js
+  s_4987b198c9213b::t_db341858b04f67 1-48
+src/features/nutrition/index.jsx
+  s_4987b198c9213b::t_4ad59708e8b46b 4-8,10-11,13-19,21-29,31-121,125-126,128-131,134-135,138-142,149-165,168,176,178,180,183-191,198-200,206-211,218,229-233,241-247,255,259-263,268-273,280-283,285-308,316,334-344
+src/features/nutrition/engine/scoring.js
+  s_4987b198c9213b::t_7fe00a4c6f0a3e 1-101
+src/features/nutrition/services/usda.js
+  s_4987b198c9213b::t_71d1274e9c6594 1-75
+src/features/nutrition/engine/variants.js
+  s_4987b198c9213b::t_6e456b28a3382c 1-42
+src/features/nutrition/hooks/useRecipeEngine.js
+  s_4987b198c9213b::t_8f692c96c6bccf 2-15,23-25,27-51
+  s_4987b198c9213b::t_0eeaaddb727342 1,16-22,26
+src/shared/components/ErrorBoundary.jsx
+  s_4987b198c9213b::t_b1cce485da8806 1-66
+src/features/nutrition/services/recipeCache.js
+  s_4987b198c9213b::t_cd74ddecb5f10a 1-39
+src/shared/toast.js
+  s_4987b198c9213b::t_90203e0f2e3410 1-17
+src/shared/storage/index.js
+  s_4987b198c9213b::t_944f185b209768 6-7,30-32,36-49
+src/shared/components/UpdatePrompt.jsx
+  s_4987b198c9213b::t_ab5324302d01a0 1-66
+src/features/nutrition/services/mealdb.js
+  s_4987b198c9213b::t_fcca0c97f63a89 1-119
+src/features/nutrition/data.js
+  s_4987b198c9213b::t_64a0e43fa9691a 1-362,364-366,368-369
+src/features/nutrition/engine/batchCooking.js
+  s_4987b198c9213b::t_2898d793789338 1-46
+src/shared/components/BottomNav.jsx
+  s_4987b198c9213b::t_9d63c002375e52 17
+src/features/nutrition/services/spoonacular.js
+  s_4987b198c9213b::t_106f7e491cbe7d 1-109
+src/shared/storage/export.js
+  s_4987b198c9213b::t_aa7b67c6d1357c 1-75
+src/features/nutrition/components/DifficultyStars.jsx
+  s_4987b198c9213b::t_5199c401d4e432 1-17
+src/shared/design/tokens.js
+  s_4987b198c9213b::t_4cc6bbdfd71234 25-28
+src/shared/components/Toast.jsx
+  s_4987b198c9213b::t_8236e4de9074d9 1-80
+src/features/nutrition/components/BatchCookingCard.jsx
+  s_4987b198c9213b::t_14bdda490a3275 1-67
+vite.config.js
+  s_4987b198c9213b::t_b3f29922c82726 10-13
+src/features/progress/index.jsx
+  s_4987b198c9213b::t_699154f293585c 144-157
+  s_4987b198c9213b::t_a2d7b9404b889f 3,5
+src/features/training/index.jsx
+  s_4987b198c9213b::t_006c8eba674c99 1
+  s_4987b198c9213b::t_f8468f7192a592 200-203,205-210
+src/features/nutrition/engine/planGenerator.js
+  s_4987b198c9213b::t_6413045e4d200d 1-57,60,62-195
+  s_4987b198c9213b::t_e385aac65d7189 58-59,61
+src/App.jsx
+  s_4987b198c9213b::t_17bda26b85c6c9 6-8
+  s_4987b198c9213b::t_0c28487a866df3 63-73,79-98,100-101
+src/features/nutrition/components/RecipeSwapSheet.jsx
+  s_4987b198c9213b::t_86efb71ebe1f77 1-105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "65d6e954fd84a11c7255a3898828deaf6138f487",
+  "prompts": {},
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
