@@ -1,0 +1,19 @@
+src/features/daily-feed/components/FeedItemCard.jsx
+  s_fd7dec85e2e4d8::t_b78752183c646f 181-195
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "2e4aa3a2017a5a3802386f8973c252d129577ac3",
+  "prompts": {},
+  "sessions": {
+    "s_fd7dec85e2e4d8": {
+      "agent_id": {
+        "tool": "junie",
+        "id": "1779035744649",
+        "model": "unknown"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
