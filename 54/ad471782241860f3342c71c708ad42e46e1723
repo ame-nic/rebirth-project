@@ -1,0 +1,47 @@
+src/features/wellness/components/ExpertAssessmentCard.jsx
+  s_4987b198c9213b::t_db30d2a4fb98ef 1-106
+src/features/wellness/utils/score.js
+  s_4987b198c9213b::t_0bf962b5b82812 1-126
+src/App.jsx
+  s_4987b198c9213b::t_083af07e7fd143 174
+  s_4987b198c9213b::t_8983e4adabee7f 15
+  s_4987b198c9213b::t_6e26180607c647 190
+  s_4987b198c9213b::t_889edc63aade05 59-64
+package.json
+  ai_agent 13
+src/features/progress/index.jsx
+  s_4987b198c9213b::t_c3d1eb60328928 8,10
+  s_4987b198c9213b::t_f653c242037024 146-153
+src/features/wellness/services/assessmentData.js
+  s_4987b198c9213b::t_5faf94e6ed5739 1-182
+src/features/training/index.jsx
+  s_4987b198c9213b::t_f527ed5de5f783 420
+  s_4987b198c9213b::t_df9ff7b9e83c30 10-11
+  s_4987b198c9213b::t_b1096c237ccae5 534-549
+src/features/wellness/services/expertAssessment.js
+  s_4987b198c9213b::t_a028df769454fc 1-120
+package-lock.json
+  ai_agent 11,3328-3336,7517-7521
+src/features/wellness/ReadinessCard.jsx
+  s_4987b198c9213b::t_18be0ae70553ed 1-145
+src/features/wellness/components/CheckinSheet.jsx
+  s_4987b198c9213b::t_bdfb79c1488c34 1-120
+src/features/wellness/hooks/useReadiness.js
+  s_4987b198c9213b::t_80fb8b67cace15 1-146
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "54ad471782241860f3342c71c708ad42e46e1723",
+  "prompts": {},
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
