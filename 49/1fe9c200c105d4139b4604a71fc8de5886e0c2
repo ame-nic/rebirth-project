@@ -1,0 +1,49 @@
+src/features/health/hooks/useHealth.js
+  s_4987b198c9213b::t_59d7e2b9433e80 1-120
+src/App.jsx
+  s_4987b198c9213b::t_2d8969d7440949 14
+  s_4987b198c9213b::t_2c4210e1b5285c 37
+  s_4987b198c9213b::t_2995924f23252a 56,58-59,62
+  s_4987b198c9213b::t_6d86bc43961383 26
+  s_4987b198c9213b::t_cfd4d1bed1328b 170-171
+  s_4987b198c9213b::t_83179aecae311e 145-158
+  s_4987b198c9213b::t_967e1f8c9d791d 187
+src/features/training/index.jsx
+  s_4987b198c9213b::t_de2861ccbe9066 9
+  s_4987b198c9213b::t_d7afb44e45c683 532-539
+  s_4987b198c9213b::t_ff4363fb57e44e 418
+src/features/health/HealthScreen.jsx
+  s_4987b198c9213b::t_b9596c351e6ecd 1-83
+src/features/health/components/ManualEntryForm.jsx
+  s_4987b198c9213b::t_6947b73a5ae715 1-98
+src/features/health/components/ShortcutSetupWizard.jsx
+  s_4987b198c9213b::t_cf220ba508c3c9 1,3-156
+  s_4987b198c9213b::t_fa3afee9fecb24 2
+src/features/health/services/healthBridge.js
+  s_4987b198c9213b::t_155feb79c5f5c7 1-60
+src/features/health/components/HealthCard.jsx
+  s_4987b198c9213b::t_05c5629f48ad21 1-80
+src/features/health/utils/baseline.js
+  s_4987b198c9213b::t_b642b425bf12ae 1-46
+src/features/progress/index.jsx
+  s_4987b198c9213b::t_7394593c2749c5 145-148
+  s_4987b198c9213b::t_f49ac7b5f506c5 7,9
+src/features/health/components/HealthTrends.jsx
+  s_4987b198c9213b::t_c1d6f595d69ea9 1-155
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "491fe9c200c105d4139b4604a71fc8de5886e0c2",
+  "prompts": {},
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
