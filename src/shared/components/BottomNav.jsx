@@ -3,10 +3,11 @@ import { C, FONT } from "../design/tokens.js";
 const TABS = [
   ["oggi",       "ph-barbell",        "Oggi"],
   ["nutrizione", "ph-fork-knife",     "Nutrizione"],
+  ["feed",       "ph-newspaper",      "Feed"],
   ["progressi",  "ph-chart-line-up",  "Progressi"],
 ];
 
-export default function BottomNav({ tab, onChange }) {
+export default function BottomNav({ tab, onChange, feedUnread = 0 }) {
   return (
     <nav
       style={{
@@ -27,9 +28,29 @@ export default function BottomNav({ tab, onChange }) {
             display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
             transition: "color 120ms cubic-bezier(0.22, 1, 0.36, 1)",
             textTransform: "uppercase", fontWeight: 500,
+            position: "relative",
           }}
         >
-          <i className={`ph ${icon}`} style={{ fontSize: 22 }} />
+          <span style={{ position: "relative", display: "inline-flex" }}>
+            <i className={`ph ${icon}`} style={{ fontSize: 22 }} />
+            {id === "feed" && feedUnread > 0 && (
+              <span
+                aria-label={`${feedUnread} non letti`}
+                style={{
+                  position: "absolute",
+                  top: -2, right: -8,
+                  minWidth: 16, height: 16, padding: "0 4px",
+                  borderRadius: 999,
+                  background: C.A, color: C.bg,
+                  fontSize: 9, fontFamily: FONT, fontWeight: 500,
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  lineHeight: 1,
+                }}
+              >
+                {feedUnread > 99 ? "99+" : feedUnread}
+              </span>
+            )}
+          </span>
           {lbl}
         </button>
       ))}

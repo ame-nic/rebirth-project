@@ -6,12 +6,17 @@ import BottomNav from "./shared/components/BottomNav.jsx";
 import TodayTab, { ActiveWorkout } from "./features/training/index.jsx";
 import NutritionTab from "./features/nutrition/index.jsx";
 import ProgressTab from "./features/progress/index.jsx";
+import FeedTab from "./features/daily-feed/index.jsx";
+import { useFeed } from "./features/daily-feed/hooks/useFeed.js";
 
 export default function App() {
   const [tab,           setTab]           = useState("oggi");
   const [workoutLog,    setWorkoutLog]    = useState([]);
   const [activeSession, setActiveSession] = useState(null);
   const [loading,       setLoading]       = useState(true);
+
+  // Feed lives at root so the BottomNav can show the unread badge from any tab.
+  const feed = useFeed();
 
   useEffect(() => {
     storageLoad("workoutLog_v5", []).then((v) => {
@@ -64,8 +69,9 @@ export default function App() {
     <div style={appWrap}>
       {tab === "oggi"       && <TodayTab workoutLog={workoutLog} onStartWorkout={setActiveSession} onLogCalcetto={handleCalcetto} />}
       {tab === "nutrizione" && <NutritionTab />}
+      {tab === "feed"       && <FeedTab feed={feed} />}
       {tab === "progressi"  && <ProgressTab workoutLog={workoutLog} />}
-      <BottomNav tab={tab} onChange={setTab} />
+      <BottomNav tab={tab} onChange={setTab} feedUnread={feed.unreadCount} />
     </div>
   );
 }

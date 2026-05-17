@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { C, FONT, btn, label, pill } from "../../shared/design/tokens.js";
 import { DAY_IT, todayStr, todayDOW, getWeekStart } from "../../shared/utils/date.js";
 import ConfirmModal from "../../shared/components/ConfirmModal.jsx";
+import SwapSheet from "./SwapSheet.jsx";
 import { SESSIONS, getTodaySession } from "./data.js";
 
 function computeStreak(workoutLog) {
@@ -29,6 +30,7 @@ function SessionCard({ session, isToday, isExpanded, onToggle, onStart, workoutL
   const alreadyDone = workoutLog.some(
     (w) => w.date === todayStr() && w.id === session.id
   );
+  const [swapPreview, setSwapPreview] = useState(null);
 
   return (
     <div
@@ -86,7 +88,7 @@ function SessionCard({ session, isToday, isExpanded, onToggle, onStart, workoutL
               key={ex.id}
               style={{
                 padding: "10px 18px",
-                display: "grid", gridTemplateColumns: "1fr auto", gap: 12,
+                display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12,
                 borderBottom: i < session.exercises.length - 1 ? `1px solid ${C.borderLo}` : "none",
                 alignItems: "center",
               }}
@@ -107,6 +109,21 @@ function SessionCard({ session, isToday, isExpanded, onToggle, onStart, workoutL
                   {ex.sets}×{ex.reps}
                 </div>
               </div>
+              {ex.variants && ex.variants.length > 0 ? (
+                <button
+                  onClick={(e) => { e.stopPropagation(); setSwapPreview(ex); }}
+                  aria-label={`Vedi varianti di ${ex.name}`}
+                  style={{
+                    background: "none", border: `1px solid ${C.border}`,
+                    borderRadius: 4, color: C.txtSec,
+                    width: 32, height: 32, cursor: "pointer",
+                    display: "inline-flex", alignItems: "center", justifyContent: "center",
+                    transition: "all 120ms cubic-bezier(0.22, 1, 0.36, 1)",
+                  }}
+                >
+                  <i className="ph ph-arrows-clockwise" style={{ fontSize: 14 }} />
+                </button>
+              ) : <span style={{ width: 32 }} />}
             </div>
           ))}
 
@@ -137,6 +154,15 @@ function SessionCard({ session, isToday, isExpanded, onToggle, onStart, workoutL
           </div>
         </div>
       )}
+
+      {swapPreview && (
+        <SwapSheet
+          exercise={swapPreview}
+          accentColor={session.color}
+          readOnly
+          onClose={() => setSwapPreview(null)}
+        />
+      )}
     </div>
   );
 }
@@ -154,6 +180,20 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
   const [expandedIdx, setExpandedIdx] = useState(0);
   const [restTimer, setRestTimer] = useState(null);
   const timerRef = useRef(null);
+  // Original-id → variant. Session-scoped only; resets when ActiveWorkout
+  // unmounts (i.e. next session start).
+  const [swappedExercises, setSwappedExercises] = useState({});
+  const [swapIdx, setSwapIdx] = useState(null);
+
+  function swapExercise(exIdx, variant) {
+    const originalId = session.exercises[exIdx].id;
+    setSwappedExercises((prev) => ({ ...prev, [originalId]: variant }));
+    setLogs(logs.map((ex, i) =>
+      i === exIdx
+        ? { ...variant, usedKg: variant.kg, setsDone: Array(variant.sets).fill(false) }
+        : ex
+    ));
+  }
 
   const doneSets = logs.reduce((s, ex) => s + ex.setsDone.filter(Boolean).length, 0);
   const pct = Math.round((doneSets / totalSets) * 100);
@@ -229,9 +269,12 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
         {logs.map((ex, exIdx) => {
           const allDone = ex.setsDone.every(Boolean);
           const isOpen = expandedIdx === exIdx;
+          const originalEx = session.exercises[exIdx];
+          const isSwapped = !!swappedExercises[originalEx.id];
+          const hasVariants = (originalEx.variants || []).length > 0;
           return (
             <div
-              key={ex.id}
+              key={originalEx.id}
               style={{
                 background: allDone ? C.C + "0f" : C.surf,
                 border: `1px solid ${allDone ? C.C + "44" : C.border}`,
@@ -241,13 +284,27 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
             >
               <div
                 onClick={() => setExpandedIdx(isOpen ? -1 : exIdx)}
-                style={{ padding: "14px 16px", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}
+                style={{ padding: "14px 16px", cursor: "pointer", display: "flex", alignItems: "center", gap: 12 }}
               >
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 15, color: allDone ? C.C : C.txt }}>{ex.name}</div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+                    <div style={{ fontSize: 15, color: allDone ? C.C : C.txt }}>{ex.name}</div>
+                    {isSwapped && (
+                      <span style={{
+                        fontSize: 9, fontFamily: FONT, color: C.sport,
+                        border: `1px solid ${C.sport}44`, background: C.sport + "14",
+                        borderRadius: 999, padding: "1px 7px",
+                        letterSpacing: 0.6, textTransform: "uppercase",
+                        display: "inline-flex", alignItems: "center", gap: 3,
+                      }}>
+                        <i className="ph ph-arrows-clockwise" style={{ fontSize: 9 }} />
+                        Variante
+                      </span>
+                    )}
+                  </div>
                   <div style={{ fontSize: 11, color: C.txtMute, marginTop: 3, fontFamily: FONT }}>{ex.muscle}</div>
                 </div>
-                <div style={{ textAlign: "right", marginLeft: 12 }}>
+                <div style={{ textAlign: "right" }}>
                   {ex.unit !== "bw" && (
                     <div style={{ fontSize: 16, color: allDone ? C.C : session.color, fontFamily: FONT }}>
                       {ex.usedKg}kg
@@ -257,6 +314,21 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
                     {ex.sets}×{ex.reps}
                   </div>
                 </div>
+                {hasVariants && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setSwapIdx(exIdx); }}
+                    aria-label="Sostituisci esercizio"
+                    style={{
+                      background: "none", border: `1px solid ${C.border}`,
+                      borderRadius: 4, color: C.txtSec,
+                      width: 32, height: 32, cursor: "pointer", flexShrink: 0,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      transition: "all 120ms cubic-bezier(0.22, 1, 0.36, 1)",
+                    }}
+                  >
+                    <i className="ph ph-arrows-clockwise" style={{ fontSize: 14 }} />
+                  </button>
+                )}
               </div>
 
               {isOpen && (
@@ -290,6 +362,16 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
                       </button>
                     ))}
                   </div>
+                  {ex.tip && (
+                    <div style={{
+                      marginTop: 14, padding: "10px 12px",
+                      background: C.bg, border: `1px solid ${C.border}`,
+                      borderRadius: 4, fontSize: 12, color: C.txtSec, lineHeight: 1.55,
+                    }}>
+                      <span style={{ color: session.color, fontFamily: FONT, fontWeight: 500, textTransform: "uppercase", letterSpacing: 1, fontSize: 10 }}>Tip · </span>
+                      {ex.tip}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -313,6 +395,15 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
         </div>
         <div style={{ height: 20 }} />
       </div>
+
+      {swapIdx !== null && (
+        <SwapSheet
+          exercise={session.exercises[swapIdx]}
+          accentColor={session.color}
+          onSwap={(variant) => swapExercise(swapIdx, variant)}
+          onClose={() => setSwapIdx(null)}
+        />
+      )}
     </div>
   );
 }

@@ -1,0 +1,96 @@
+/* RSS fetch with rss2json primary + allorigins fallback.
+   Browsers can't fetch raw RSS due to CORS, so we route through a proxy.
+   rss2json returns parsed JSON (preferred). allorigins returns raw XML
+   wrapped in `{ contents }`. */
+
+const RSS2JSON   = "https://api.rss2json.com/v1/api.json";
+const ALLORIGINS = "https://api.allorigins.win/get";
+
+function stripHtml(html) {
+  if (!html) return "";
+  return html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+}
+
+function normalize(item, source) {
+  return {
+    id:          item.id,
+    title:       item.title,
+    summary:     item.summary,
+    url:         item.url,
+    publishedAt: item.publishedAt,
+    source:      item.source ?? source.label,
+    sourceId:    source.id,
+    category:    source.category,
+    image:       item.image ?? null,
+    read:        false,
+  };
+}
+
+async function viaRss2Json(source, limit = 8) {
+  const endpoint = `${RSS2JSON}?rss_url=${encodeURIComponent(source.config.url)}&count=${limit}`;
+  const res  = await fetch(endpoint);
+  if (!res.ok) throw new Error(`rss2json ${res.status}`);
+  const data = await res.json();
+  if (data.status !== "ok") throw new Error(data.message || "rss2json failed");
+  return (data.items || []).map((item) => normalize({
+    id:          item.guid || item.link,
+    title:       item.title,
+    summary:     stripHtml(item.description).slice(0, 240),
+    url:         item.link,
+    publishedAt: new Date(item.pubDate),
+    source:      data.feed?.title || source.label,
+    image:       item.thumbnail || item.enclosure?.link || null,
+  }, source));
+}
+
+function parseXMLItems(xml, source) {
+  // Try RSS 2.0 <item> first, fall back to Atom <entry>.
+  let nodes = Array.from(xml.querySelectorAll("item"));
+  let isAtom = false;
+  if (nodes.length === 0) {
+    nodes = Array.from(xml.querySelectorAll("entry"));
+    isAtom = true;
+  }
+
+  return nodes.slice(0, 8).map((node) => {
+    const get = (sel) => node.querySelector(sel)?.textContent?.trim() || "";
+    const title       = get("title");
+    const link        = isAtom
+      ? node.querySelector("link")?.getAttribute("href") || ""
+      : get("link");
+    const description = get("description") || get("summary") || get("content");
+    const pubDate     = get("pubDate") || get("published") || get("updated");
+    const guid        = get("guid") || link;
+    return normalize({
+      id:          guid,
+      title,
+      summary:     stripHtml(description).slice(0, 240),
+      url:         link,
+      publishedAt: pubDate ? new Date(pubDate) : new Date(),
+      image:       null,
+    }, source);
+  });
+}
+
+async function viaAllOrigins(source) {
+  const endpoint = `${ALLORIGINS}?url=${encodeURIComponent(source.config.url)}`;
+  const res  = await fetch(endpoint);
+  if (!res.ok) throw new Error(`allorigins ${res.status}`);
+  const data = await res.json();
+  if (!data.contents) throw new Error("allorigins empty response");
+  const xml = new DOMParser().parseFromString(data.contents, "text/xml");
+  if (xml.querySelector("parsererror")) throw new Error("XML parse error");
+  return parseXMLItems(xml, source);
+}
+
+export async function fetchRSS(source) {
+  try {
+    return await viaRss2Json(source);
+  } catch (e1) {
+    try {
+      return await viaAllOrigins(source);
+    } catch (e2) {
+      throw new Error(`RSS fetch failed (${source.label}): ${e1.message} / ${e2.message}`, { cause: e2 });
+    }
+  }
+}
