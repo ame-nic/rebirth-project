@@ -6,11 +6,22 @@ import { exportBackup } from "../../shared/storage/export.js";
 import { todayStr, fmtDate, getWeekStart } from "../../shared/utils/date.js";
 import HealthTrends from "../health/components/HealthTrends.jsx";
 import ExpertAssessmentCard from "../wellness/components/ExpertAssessmentCard.jsx";
+import Measurements from "./Measurements.jsx";
+import { useMeasurements } from "./hooks/useMeasurements.js";
+
+const MEASUREMENT_REMINDER_DAYS = 28;
 
 export default function ProgressTab({ workoutLog, health, readiness }) {
   const [weights, setWeights]     = useState([]);
   const [newW, setNewW]           = useState("95");
   const [showInput, setShowInput] = useState(false);
+  const [view, setView]           = useState("generale"); // "generale" | "misurazioni"
+
+  const measurementsApi = useMeasurements();
+  const daysSinceLastMeasurement = measurementsApi.getDaysSinceLastMeasurement();
+  const measurementOverdue =
+    daysSinceLastMeasurement == null ||
+    daysSinceLastMeasurement > MEASUREMENT_REMINDER_DAYS;
 
   useEffect(() => {
     storageLoad("weightLog_v5", []).then(setWeights);
@@ -55,6 +66,61 @@ export default function ProgressTab({ workoutLog, health, readiness }) {
         <div style={{ fontSize: 22, color: C.txt, letterSpacing: "-0.02em" }}>Il tuo percorso.</div>
       </div>
 
+      {/* Sub-tab toggle — minimal 2-segment split. Future expansion to
+          the 4-tab layout in the spec would split the Generale content
+          further (Peso / Allenamento / etc.). */}
+      <div style={{ display: "flex", background: C.surf, borderBottom: `1px solid ${C.border}` }}>
+        {[["generale", "Generale"], ["misurazioni", "Misurazioni"]].map(([id, lbl]) => (
+          <button
+            key={id}
+            onClick={() => setView(id)}
+            style={{
+              flex: 1, padding: "13px", background: "none", border: "none",
+              borderBottom: view === id ? `2px solid ${C.A}` : "2px solid transparent",
+              color: view === id ? C.txt : C.txtMute, cursor: "pointer",
+              fontSize: 13, fontFamily: FONT,
+              transition: "color 120ms cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+          >
+            {lbl}
+          </button>
+        ))}
+      </div>
+
+      {/* Monthly measurement reminder — appears on the Generale view so
+          the prompt is visible from the default landing. */}
+      {view === "generale" && measurementOverdue && measurementsApi.measurements.length > 0 && (
+        <div style={{ padding: "12px 14px 0" }}>
+          <button
+            onClick={() => setView("misurazioni")}
+            style={{
+              width: "100%", textAlign: "left",
+              background: C.surf, border: `1px solid ${C.A}55`,
+              borderRadius: 4, padding: "10px 12px",
+              fontFamily: FONT, cursor: "pointer",
+              display: "flex", alignItems: "center", gap: 10,
+            }}
+          >
+            <i className="ph ph-ruler" style={{ fontSize: 18, color: C.A, flexShrink: 0 }} />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 12, color: C.txt }}>
+                Ultima misurazione: {daysSinceLastMeasurement} giorni fa
+              </div>
+              <div style={{ fontSize: 10, color: C.txtMute, marginTop: 2 }}>
+                Tocca per registrare una nuova misurazione.
+              </div>
+            </div>
+            <i className="ph ph-caret-right" style={{ fontSize: 12, color: C.txtMute }} />
+          </button>
+        </div>
+      )}
+
+      {view === "misurazioni" ? (
+        <div style={{ padding: "14px 14px 0" }}>
+          <Measurements measurementsApi={measurementsApi} />
+          <div style={{ height: 12 }} />
+        </div>
+      ) : (
       <div style={{ padding: "14px 14px 0" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 14 }}>
           {[
@@ -190,6 +256,7 @@ export default function ProgressTab({ workoutLog, health, readiness }) {
         )}
         <div style={{ height: 12 }} />
       </div>
+      )}
     </div>
   );
 }
