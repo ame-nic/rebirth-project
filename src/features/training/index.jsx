@@ -9,6 +9,9 @@ import WeeklySummaryCard from "../habits/components/WeeklySummaryCard.jsx";
 import HealthCard from "../health/components/HealthCard.jsx";
 import ReadinessCard from "../wellness/ReadinessCard.jsx";
 import ExpertAssessmentCard from "../wellness/components/ExpertAssessmentCard.jsx";
+import AlterEgoGreeting from "../alterEgo/components/AlterEgoGreeting.jsx";
+import AlterEgoWeeklyCard from "../alterEgo/components/AlterEgoWeeklyCard.jsx";
+import { computeWeekStats as computeAEWeekStats } from "../alterEgo/utils/weekStats.js";
 
 function computeStreak(workoutLog) {
   let streak = 0;
@@ -417,7 +420,7 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
   );
 }
 
-export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits, health, onOpenHealth, readiness }) {
+export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits, health, onOpenHealth, readiness, alterEgo, onOpenAlterEgo }) {
   const todaySession = getTodaySession();
   const today = todayStr();
   const todayLog = workoutLog.find((w) => w.date === today);
@@ -516,7 +519,10 @@ export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, ha
       </div>
 
       <div style={{ padding: "14px 14px 0" }}>
+        <AlterEgoGreeting alterEgo={alterEgo?.alterEgo} onOpen={onOpenAlterEgo} />
+
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, marginBottom: 14 }}>
+
           {[
             ["Questa sett.", `${weekSessions.length}/3`, weekSessions.length >= 3 ? C.C : weekSessions.length >= 2 ? C.sport : C.A],
             ["Totali",       workoutLog.length,             C.B],
@@ -566,6 +572,20 @@ export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, ha
 
         {habits && habits.habits.length > 0 && (
           <WeeklySummaryCard habits={habits.habits} logs={habits.logs} />
+        )}
+
+        {alterEgo?.alterEgo && (
+          <AlterEgoWeeklyCard
+            alterEgo={alterEgo.alterEgo}
+            habits={habits.habits}
+            habitLogs={habits.logs}
+            weekStats={computeAEWeekStats({
+              workoutLog,
+              habits: habits.habits,
+              habitLogs: habits.logs,
+              readinessLogs: readiness?.logs,
+            })}
+          />
         )}
 
         {!todayLog && (

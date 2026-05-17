@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { storageLoad, storageSave } from "../../../shared/storage/index.js";
-import { todayStr, pruneOldLogs } from "../utils/streak.js";
+import { todayStr, pruneOldLogs, computeStreak } from "../utils/streak.js";
+
+const MILESTONE_STREAKS = new Set([7, 21, 30, 66, 100]);
 
 const KEY_HABITS = "rebirth_habits";
 const KEY_LOGS   = "rebirth_habit_logs";
@@ -84,6 +86,7 @@ export function useHabits() {
     const today = todayStr();
     const existing = logs.find((l) => l.habitId === habitId && l.date === today);
     let next;
+    const wasDoneToday = !!existing?.done;
     if (existing) {
       // Toggle done state. Clears skipped when transitioning to done.
       next = logs.map((l) =>
@@ -95,6 +98,17 @@ export function useHabits() {
       next = [...logs, { habitId, date: today, done: true, skipped: false, note: "" }];
     }
     await persistLogs(next);
+
+    // Emit a milestone event only when the toggle made the habit DONE
+    // (not when un-marking). Layer 9's useAlterEgo listens for this to
+    // surface the full-screen celebration.
+    const isNowDone = !wasDoneToday;
+    if (isNowDone && typeof window !== "undefined") {
+      const newStreak = computeStreak(habitId, next);
+      if (MILESTONE_STREAKS.has(newStreak)) {
+        window.dispatchEvent(new CustomEvent("habit:milestone", { detail: { habitId, streak: newStreak } }));
+      }
+    }
   }, [logs, persistLogs]);
 
   const skipToday = useCallback(async (habitId) => {

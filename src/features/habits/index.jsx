@@ -3,6 +3,7 @@ import { C, FONT, btn, label } from "../../shared/design/tokens.js";
 import HabitCard from "./components/HabitCard.jsx";
 import AddHabitSheet from "./components/AddHabitSheet.jsx";
 import HabitDetail from "./HabitDetail.jsx";
+import StreakProtectionList from "../alterEgo/components/StreakProtectionList.jsx";
 import {
   SUGGESTED_HABITS,
   TIME_OF_DAY_LABELS,
@@ -15,7 +16,7 @@ import {
   requestNotificationsPermission,
 } from "./utils/notifications.js";
 
-export default function HabitsTab({ habits: habitsApi }) {
+export default function HabitsTab({ habits: habitsApi, alterEgo }) {
   const {
     habits, logs, todayLogsByHabit, todayCompletionCount,
     addHabit, updateHabit, archiveHabit, toggleHabit, skipToday,
@@ -100,6 +101,14 @@ export default function HabitsTab({ habits: habitsApi }) {
       </div>
 
       <div style={{ padding: "14px 14px 0" }}>
+        <StreakProtectionList
+          habits={habits}
+          logs={logs}
+          todayLogsByHabit={todayLogsByHabit}
+          alterEgo={alterEgo}
+          onToggleHabit={toggleHabit}
+        />
+
         {/* Notifications status — informational; iOS PWA install required */}
         {notificationsSupported() && notifStatus === "default" && (
           <div

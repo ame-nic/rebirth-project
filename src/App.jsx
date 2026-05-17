@@ -14,6 +14,8 @@ import { useHabits } from "./features/habits/hooks/useHabits.js";
 import { useHealth } from "./features/health/hooks/useHealth.js";
 import { useReadiness } from "./features/wellness/hooks/useReadiness.js";
 import { useGrowth } from "./features/growth/hooks/useGrowth.js";
+import { useAlterEgo } from "./features/alterEgo/hooks/useAlterEgo.js";
+import MilestoneCelebration from "./features/alterEgo/components/MilestoneCelebration.jsx";
 
 // Each tab module is its own chunk. Recharts (Progress, ~150 KB) and
 // the recipe engine (Nutrition) are the biggest wins from splitting.
@@ -25,7 +27,8 @@ const NutritionTab = lazy(() => import("./features/nutrition/index.jsx"));
 const ProgressTab  = lazy(() => import("./features/progress/index.jsx"));
 const FeedTab      = lazy(() => import("./features/daily-feed/index.jsx"));
 const HabitsTab    = lazy(() => import("./features/habits/index.jsx"));
-const HealthScreen = lazy(() => import("./features/health/HealthScreen.jsx"));
+const HealthScreen   = lazy(() => import("./features/health/HealthScreen.jsx"));
+const AlterEgoScreen = lazy(() => import("./features/alterEgo/AlterEgoScreen.jsx"));
 
 // Used by BottomNav for preload-on-hover. Triggering the dynamic import
 // here primes the chunk so the tap transition feels instant.
@@ -56,6 +59,7 @@ export default function App() {
   const [activeSession, setActiveSession] = useState(null);
   const [loading,       setLoading]       = useState(true);
   const [healthOpen,    setHealthOpen]    = useState(false);
+  const [alterEgoOpen,  setAlterEgoOpen]  = useState(false);
 
   // Feed / Habits / Health / Readiness all live at root: cross-tab
   // affordances need their state regardless of which tab is active.
@@ -64,6 +68,7 @@ export default function App() {
   const health    = useHealth();
   const readiness = useReadiness({ workoutLog, habits: habits.habits });
   const growth    = useGrowth();
+  const alterEgo  = useAlterEgo();
 
   useEffect(() => {
     storageLoad("workoutLog_v5", []).then((v) => {
@@ -160,6 +165,30 @@ export default function App() {
     );
   }
 
+  if (alterEgoOpen) {
+    return (
+      <>
+        <ErrorBoundary label="Alter ego">
+          <Suspense fallback={<TabFallback />}>
+            <AlterEgoScreen
+              alterEgo={alterEgo.alterEgo}
+              isConfigured={alterEgo.isConfigured}
+              createAlterEgo={alterEgo.createAlterEgo}
+              updateProfile={alterEgo.updateProfile}
+              addStatement={alterEgo.addStatement}
+              updateStatement={alterEgo.updateStatement}
+              removeStatement={alterEgo.removeStatement}
+              reorderStatement={alterEgo.reorderStatement}
+              onClose={() => setAlterEgoOpen(false)}
+            />
+          </Suspense>
+        </ErrorBoundary>
+        <Toast />
+        <UpdatePrompt />
+      </>
+    );
+  }
+
   return (
     <div style={appWrap}>
       <Suspense fallback={<TabFallback />}>
@@ -174,6 +203,8 @@ export default function App() {
               health={health}
               onOpenHealth={() => setHealthOpen(true)}
               readiness={readiness}
+              alterEgo={alterEgo}
+              onOpenAlterEgo={() => setAlterEgoOpen(true)}
             />
           </ErrorBoundary>
         )}
@@ -194,13 +225,21 @@ export default function App() {
         )}
         {tab === "abitudini" && (
           <ErrorBoundary label="Abitudini">
-            <HabitsTab habits={habits} />
+            <HabitsTab habits={habits} alterEgo={alterEgo.alterEgo} />
           </ErrorBoundary>
         )}
       </Suspense>
       <BottomNav tab={tab} onChange={setTab} onHover={preloadTab} feedUnread={feed.unreadCount} />
       <Toast />
       <UpdatePrompt />
+      {alterEgo.pendingCelebration && (
+        <MilestoneCelebration
+          celebration={alterEgo.pendingCelebration}
+          alterEgo={alterEgo.alterEgo}
+          habits={habits.habits}
+          onDismiss={alterEgo.dismissCelebration}
+        />
+      )}
     </div>
   );
 }
