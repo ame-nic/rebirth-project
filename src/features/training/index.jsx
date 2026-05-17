@@ -4,6 +4,8 @@ import { DAY_IT, todayStr, todayDOW, getWeekStart } from "../../shared/utils/dat
 import ConfirmModal from "../../shared/components/ConfirmModal.jsx";
 import SwapSheet from "./SwapSheet.jsx";
 import { SESSIONS, getTodaySession } from "./data.js";
+import HabitsSnapshot from "../habits/components/HabitsSnapshot.jsx";
+import WeeklySummaryCard from "../habits/components/WeeklySummaryCard.jsx";
 
 function computeStreak(workoutLog) {
   let streak = 0;
@@ -412,7 +414,7 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
   );
 }
 
-export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto }) {
+export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits }) {
   const todaySession = getTodaySession();
   const today = todayStr();
   const todayLog = workoutLog.find((w) => w.date === today);
@@ -525,6 +527,19 @@ export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto }) 
             </div>
           ))}
         </div>
+
+        {habits && habits.habits.length > 0 && (
+          <HabitsSnapshot
+            habits={habits.habits}
+            todayLogsByHabit={habits.todayLogsByHabit}
+            doneCount={habits.todayCompletionCount}
+            onOpen={onOpenHabits}
+          />
+        )}
+
+        {habits && habits.habits.length > 0 && (
+          <WeeklySummaryCard habits={habits.habits} logs={habits.logs} />
+        )}
 
         {!todayLog && (
           <button

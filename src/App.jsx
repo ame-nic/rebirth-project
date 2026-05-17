@@ -10,6 +10,7 @@ import { useFeed } from "./features/daily-feed/hooks/useFeed.js";
 import { readCache } from "./features/daily-feed/services/cache.js";
 import { fetchSourceItems } from "./features/daily-feed/services/fetchSource.js";
 import { fetchWeather } from "./features/daily-feed/services/fetchWeather.js";
+import { useHabits } from "./features/habits/hooks/useHabits.js";
 
 // Each tab module is its own chunk. Recharts (Progress, ~150 KB) and
 // the recipe engine (Nutrition) are the biggest wins from splitting.
@@ -20,6 +21,7 @@ const ActiveWorkout = lazy(() =>
 const NutritionTab = lazy(() => import("./features/nutrition/index.jsx"));
 const ProgressTab  = lazy(() => import("./features/progress/index.jsx"));
 const FeedTab      = lazy(() => import("./features/daily-feed/index.jsx"));
+const HabitsTab    = lazy(() => import("./features/habits/index.jsx"));
 
 // Used by BottomNav for preload-on-hover. Triggering the dynamic import
 // here primes the chunk so the tap transition feels instant.
@@ -29,6 +31,7 @@ function preloadTab(id) {
     case "nutrizione": return import("./features/nutrition/index.jsx");
     case "feed":       return import("./features/daily-feed/index.jsx");
     case "progressi":  return import("./features/progress/index.jsx");
+    case "abitudini":  return import("./features/habits/index.jsx");
     default:           return Promise.resolve();
   }
 }
@@ -48,9 +51,10 @@ export default function App() {
   const [activeSession, setActiveSession] = useState(null);
   const [loading,       setLoading]       = useState(true);
 
-  // Feed lives at root so the BottomNav badge stays current regardless
-  // of which tab is open.
-  const feed = useFeed();
+  // Feed and Habits both live at root: their state powers cross-tab
+  // affordances (Feed badge in BottomNav, Habits snapshot on Today).
+  const feed   = useFeed();
+  const habits = useHabits();
 
   useEffect(() => {
     storageLoad("workoutLog_v5", []).then((v) => {
@@ -138,7 +142,13 @@ export default function App() {
       <Suspense fallback={<TabFallback />}>
         {tab === "oggi" && (
           <ErrorBoundary label="Oggi">
-            <TodayTab workoutLog={workoutLog} onStartWorkout={setActiveSession} onLogCalcetto={handleCalcetto} />
+            <TodayTab
+              workoutLog={workoutLog}
+              onStartWorkout={setActiveSession}
+              onLogCalcetto={handleCalcetto}
+              habits={habits}
+              onOpenHabits={() => setTab("abitudini")}
+            />
           </ErrorBoundary>
         )}
         {tab === "nutrizione" && (
@@ -154,6 +164,11 @@ export default function App() {
         {tab === "progressi" && (
           <ErrorBoundary label="Progressi">
             <ProgressTab workoutLog={workoutLog} />
+          </ErrorBoundary>
+        )}
+        {tab === "abitudini" && (
+          <ErrorBoundary label="Abitudini">
+            <HabitsTab habits={habits} />
           </ErrorBoundary>
         )}
       </Suspense>
