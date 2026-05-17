@@ -1,0 +1,63 @@
+src/features/daily-feed/services/fetchReddit.js
+  s_4987b198c9213b::t_4f34660951f7fb 1-27
+src/features/daily-feed/components/FeedItemCard.jsx
+  s_4987b198c9213b::t_80c4c22cebf895 1-64
+src/features/daily-feed/index.jsx
+  s_4987b198c9213b::t_2c5c2328e33504 1-123
+src/features/training/index.jsx
+  s_4987b198c9213b::t_700f8c6a2cc17e 272-274,277,287,289-304,307,317-331
+  s_4987b198c9213b::t_6618362f4a3429 398-406
+  s_4987b198c9213b::t_6b21de68d29cdb 157-165
+  s_4987b198c9213b::t_2d848d56455da1 183-196
+  s_4987b198c9213b::t_966b623c31da9e 5
+  s_4987b198c9213b::t_cc4e83ff2357c8 33
+  s_4987b198c9213b::t_e53be7c6fd21a3 365-374
+  s_4987b198c9213b::t_f5e6765a42016a 91,112-126
+src/features/daily-feed/components/CategoryFilter.jsx
+  s_4987b198c9213b::t_8e04b2a9e4447b 1-43
+src/features/training/SwapSheet.jsx
+  s_4987b198c9213b::t_c5265d22fd49c1 1-74
+src/features/daily-feed/services/fetchSource.js
+  s_4987b198c9213b::t_29fbdee0aeb140 1-14
+src/features/daily-feed/components/SourceManager.jsx
+  s_4987b198c9213b::t_a26e1c8044bc78 1-145
+src/shared/components/BottomNav.jsx
+  s_4987b198c9213b::t_1f0d8bab54bf7b 6,10,31,34-53
+src/features/daily-feed/hooks/useFeed.js
+  s_4987b198c9213b::t_717486adb7cbeb 1-194
+src/features/daily-feed/components/WeatherCard.jsx
+  s_4987b198c9213b::t_79e25865bc3725 1-45
+src/features/daily-feed/services/fetchRSS.js
+  s_4987b198c9213b::t_0443231a76263b 1-92,94-96
+  s_4987b198c9213b::t_695b3d9f82d139 93
+src/features/daily-feed/services/cache.js
+  s_4987b198c9213b::t_31c48c2b6806b5 1-46
+src/features/daily-feed/utils/timeAgo.js
+  s_4987b198c9213b::t_19ee5bdd2b9c46 1-10
+src/features/daily-feed/data/defaultSources.js
+  s_4987b198c9213b::t_eb21adabd18ffb 1-104
+src/features/daily-feed/services/fetchWeather.js
+  s_4987b198c9213b::t_dac1ebbf13b408 1-65
+src/App.jsx
+  s_4987b198c9213b::t_f0d989832ac0da 9-10,18-20,72,74
+src/features/training/data.js
+  s_4987b198c9213b::t_a26b98e7dbab6b 3-190,195-199,205-209,215-220,226-230
+src/features/daily-feed/components/AddSourceSheet.jsx
+  s_4987b198c9213b::t_db507be6d6ff9f 1-182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "2d532b8799a7585f7a3925af3404f0c1cf6c73dc",
+  "prompts": {},
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
