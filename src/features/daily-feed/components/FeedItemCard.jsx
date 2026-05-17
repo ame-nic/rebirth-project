@@ -43,22 +43,34 @@ function FeedItemCardImpl({ item, onRead, saved = false }) {
       if (cancelled) return;
       if (cached) {
         setSummaryText(cached);
-        return;
       }
-      setSummaryLoading(true);
-      setSummaryError(false);
+    })();
+    return () => { cancelled = true; };
+  }, [summaryOpen, summaryText, summaryLoading, item.id]);
+
+  const handleGenerate = useCallback(async (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (summaryLoading) return;
+
+    setSummaryLoading(true);
+    setSummaryError(false);
+    try {
       const text = await callAIWithFallback(buildSummaryPrompt(item), SUMMARY_SYSTEM_PROMPT, 200);
-      if (cancelled) return;
       if (text) {
         setSummaryText(text.trim());
         setSummary(item.id, text.trim()).catch(() => {});
       } else {
         setSummaryError(true);
       }
+    } catch {
+      setSummaryError(true);
+    } finally {
       setSummaryLoading(false);
-    })();
-    return () => { cancelled = true; };
-  }, [summaryOpen, summaryText, summaryLoading, item]);
+    }
+  }, [item, summaryLoading]);
 
   const handleSummary = useCallback((e) => {
     e.preventDefault();
@@ -67,11 +79,8 @@ function FeedItemCardImpl({ item, onRead, saved = false }) {
   }, []);
 
   const handleRetry = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setSummaryText(null);
-    setSummaryError(false);
-  }, []);
+    handleGenerate(e);
+  }, [handleGenerate]);
 
   return (
     <a
@@ -168,6 +177,21 @@ function FeedItemCardImpl({ item, onRead, saved = false }) {
             <div style={{ fontSize: 12, color: C.txtMute, fontFamily: FONT, fontStyle: "italic" }}>
               Generazione in corso…
             </div>
+          )}
+          {!summaryLoading && !summaryError && !summaryText && (
+            <button
+              onClick={handleGenerate}
+              style={{
+                ...btn("none", C.B),
+                border: `1px solid ${C.B}55`,
+                fontSize: 12,
+                padding: "6px 12px",
+                display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+              }}
+            >
+              <i className="ph ph-sparkle" style={{ fontSize: 13 }} />
+              Genera riassunto AI
+            </button>
           )}
           {!summaryLoading && summaryError && (
             <div style={{ fontSize: 12, color: C.txtSec, lineHeight: 1.5 }}>
