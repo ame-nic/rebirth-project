@@ -1,0 +1,35 @@
+src/features/daily-feed/components/SourceManager.jsx
+  s_4987b198c9213b::t_07a6e300af71f8 17
+src/features/habits/index.jsx
+  s_4987b198c9213b::t_96f5851de8fcc9 80
+src/features/progress/index.jsx
+  s_4987b198c9213b::t_0e490e4b26be44 62
+src/features/daily-feed/index.jsx
+  s_4987b198c9213b::t_47e545e8cb872f 53
+src/features/habits/HabitDetail.jsx
+  s_4987b198c9213b::t_2a8e7715f8c9b8 85
+src/features/nutrition/index.jsx
+  s_4987b198c9213b::t_1e10200af70868 221
+  s_4987b198c9213b::t_3576694bf7bcce 172
+src/features/alterEgo/AlterEgoScreen.jsx
+  s_4987b198c9213b::t_b319401823fb5d 57,293
+src/features/training/index.jsx
+  s_4987b198c9213b::t_80f7bc367c6441 242
+  s_4987b198c9213b::t_0e9cc7c9fb75e2 483
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "cc3c7baa3f612189197f358b6e6af5db4420bd1c",
+  "prompts": {},
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
