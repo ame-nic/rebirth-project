@@ -1,0 +1,67 @@
+<mxfile host="Claude Code" version="21.0.0">
+  <diagram name="C4 Level 1 — System Context" id="c4-context">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+
+        <mxCell id="t1" value="C4 — Level 1: System Context" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="600" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="t2" value="rebirth-project · Personal Wellness PWA" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="300" y="48" width="600" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="person" value="&lt;b&gt;Nicola&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;The User&lt;br/&gt;[Person]&lt;br/&gt;&lt;br/&gt;35 anni, Milano.&lt;br/&gt;Usa l'app su iPhone&lt;br/&gt;ogni giorno.&lt;/font&gt;" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;fillColor=#08427b;strokeColor=#073b6f;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="300" width="120" height="140" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="system" value="&lt;b&gt;rebirth-project&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[Software System]&lt;br/&gt;&lt;br/&gt;PWA installabile su iPhone.&lt;br/&gt;Daily companion per&lt;br/&gt;benessere fisico e mentale.&lt;br/&gt;React + Vite + Vercel.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="360" y="280" width="200" height="140" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="vercel" value="&lt;b&gt;Vercel Edge&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External System]&lt;br/&gt;&lt;br/&gt;Hosting + Edge Functions&lt;br/&gt;/api/ai · /api/storage&lt;br/&gt;Free tier&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="700" y="160" width="160" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="upstash" value="&lt;b&gt;Upstash Redis&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External System]&lt;br/&gt;&lt;br/&gt;Persistent storage&lt;br/&gt;20 critical keys&lt;br/&gt;Free: 500K cmd/mo&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="700" y="300" width="160" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="gemini" value="&lt;b&gt;Google Gemini&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External System]&lt;br/&gt;&lt;br/&gt;Gemini 2.0 Flash&lt;br/&gt;AI Coach, Assessment&lt;br/&gt;Free: 1500 req/day&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="700" y="440" width="160" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="health" value="&lt;b&gt;Apple Health&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External System]&lt;br/&gt;&lt;br/&gt;Steps, Sleep, HRV&lt;br/&gt;Via Shortcuts bridge&lt;br/&gt;iPhone + Apple Watch&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="120" width="160" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="feeds" value="&lt;b&gt;Content APIs&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External Systems]&lt;br/&gt;&lt;br/&gt;RSS · Reddit · Open-Meteo&lt;br/&gt;OpenLibrary · Spoonacular&lt;br/&gt;USDA · NewsData&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="490" width="160" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="a1" value="Usa l'app" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#555555;fontColor=#555555;fontSize=10;" edge="1" parent="1" source="person" target="system">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" value="Hosted on" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555555;fontColor=#555555;fontSize=10;" edge="1" parent="1" source="system" target="vercel">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" value="Persists data" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555555;fontColor=#555555;fontSize=10;" edge="1" parent="1" source="system" target="upstash">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" value="AI inference" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555555;fontColor=#555555;fontSize=10;" edge="1" parent="1" source="system" target="gemini">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5" value="Health sync via URL params" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555555;fontColor=#555555;fontSize=10;" edge="1" parent="1" source="health" target="system">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a6" value="Fetches content" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555555;fontColor=#555555;fontSize=10;" edge="1" parent="1" source="system" target="feeds">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a7" value="Opens Shortcuts" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555555;fontColor=#555555;fontSize=10;dashed=1;" edge="1" parent="1" source="person" target="health">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

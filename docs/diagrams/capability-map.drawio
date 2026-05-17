@@ -1,0 +1,120 @@
+<mxfile host="Claude Code" version="21.0.0">
+  <diagram name="Capability Map — rebirth-project" id="capability-map">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="0" page="0" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="rebirth-project — Capability Map" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="200" y="20" width="1000" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="ArchiMate 3.2 — Capability View" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="200" y="55" width="1000" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg1" value="Strategy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="85" width="80" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2" value="Business" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="292" y="85" width="80" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3" value="Application" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="384" y="85" width="80" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4" value="Technology" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="476" y="85" width="80" height="24" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rh1" value="PHYSICAL WELLBEING" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;fontStyle=1;fontSize=11;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="130" width="160" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="rh2" value="MENTAL WELLBEING" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;fontStyle=1;fontSize=11;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="450" width="160" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="rh3" value="KNOWLEDGE &amp; GROWTH" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;fontStyle=1;fontSize=11;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="690" width="160" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="rh4" value="PLATFORM SERVICES" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;fontStyle=1;fontSize=11;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="910" width="160" height="160" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pw1" value="&lt;b&gt;Training Management&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;3-session split plan&lt;br/&gt;Active workout tracking&lt;br/&gt;RPE logging&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="140" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pw2" value="&lt;b&gt;Progressive Overload&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Phase-based weight calc&lt;br/&gt;Auto-progression&lt;br/&gt;Deload management&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="140" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pw3" value="&lt;b&gt;Exercise Library&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Variant suggestions&lt;br/&gt;Technique tips&lt;br/&gt;Tutorial links&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="140" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pw4" value="&lt;b&gt;Nutrition Planning&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Weekly meal plan gen.&lt;br/&gt;Recipe database&lt;br/&gt;Macro tracking&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="980" y="140" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pw5" value="&lt;b&gt;Body Composition&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Body measurements&lt;br/&gt;Navy Method BF%&lt;br/&gt;Recomposition chart&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="250" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pw6" value="&lt;b&gt;Batch Cooking&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Weekly prep plan&lt;br/&gt;Shopping list gen.&lt;br/&gt;Time optimization&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="250" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pw7" value="&lt;b&gt;Progress Analytics&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Weight trend chart&lt;br/&gt;Strength progression&lt;br/&gt;Adherence tracking&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="250" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pw8" value="&lt;b&gt;AI Expert Assessment&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;30-day analysis&lt;br/&gt;Goal alignment check&lt;br/&gt;Actionable priorities&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="980" y="250" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pw9" value="&lt;b&gt;Readiness Score&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Daily check-in&lt;br/&gt;HRV + RHR + Steps&lt;br/&gt;Training recommendation&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="360" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pw10" value="&lt;b&gt;Recipe Intelligence&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Protein/time filters&lt;br/&gt;Spoonacular + USDA&lt;br/&gt;Variant suggestions&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="360" width="180" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="mw1" value="&lt;b&gt;Atomic Habits&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Habit tracking&lt;br/&gt;Streak management&lt;br/&gt;Contribution graph&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="460" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="mw2" value="&lt;b&gt;Alter Ego System&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Identity statements&lt;br/&gt;Daily affirmation&lt;br/&gt;Milestone celebration&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="460" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="mw3" value="&lt;b&gt;Weekly Ritual&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Sunday review&lt;br/&gt;Goal reflection&lt;br/&gt;Next week planning&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="460" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="mw4" value="&lt;b&gt;Streak Protection&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Identity-framed nudges&lt;br/&gt;Non-shame approach&lt;br/&gt;Push notifications&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="980" y="460" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="mw5" value="&lt;b&gt;Wearable Integration&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Apple Health bridge&lt;br/&gt;Shortcuts automation&lt;br/&gt;HRV / RHR / Sleep&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="570" width="180" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="kg1" value="&lt;b&gt;Daily News Feed&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;RSS + Reddit sources&lt;br/&gt;Category filters&lt;br/&gt;Unread tracking&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="700" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="kg2" value="&lt;b&gt;Professional Growth&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Books + Courses&lt;br/&gt;Skills matrix&lt;br/&gt;Learning log&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="700" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="kg3" value="&lt;b&gt;Content Curation&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Article bookmarking&lt;br/&gt;Annotation&lt;br/&gt;AI summaries&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="700" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="kg4" value="&lt;b&gt;Contextual Weather&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Open-Meteo Milano&lt;br/&gt;Training suggestion&lt;br/&gt;No API key needed&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="980" y="700" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="kg5" value="&lt;b&gt;AI Coach Chat&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Contextual advice&lt;br/&gt;Full data awareness&lt;br/&gt;Proactive insights&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="810" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ps1" value="&lt;b&gt;Hybrid Storage&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;localStorage cache&lt;br/&gt;Upstash Redis sync&lt;br/&gt;Offline support&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="920" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="ps2" value="&lt;b&gt;AI Engine&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Gemini 2.0 Flash&lt;br/&gt;Edge Function proxy&lt;br/&gt;OpenRouter fallback&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="920" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="ps3" value="&lt;b&gt;PWA Shell&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Service Worker&lt;br/&gt;Offline cache&lt;br/&gt;iPhone Home Screen&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="920" width="180" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="ps4" value="&lt;b&gt;Migration System&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Lazy migrations&lt;br/&gt;Sequential runner&lt;br/&gt;Versioned keys&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="980" y="920" width="180" height="90" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

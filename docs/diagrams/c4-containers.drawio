@@ -1,0 +1,107 @@
+<mxfile host="Claude Code" version="21.0.0">
+  <diagram name="C4 Level 2 — Containers" id="c4-containers">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+
+        <mxCell id="t1" value="C4 — Level 2: Container Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="700" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="boundary" value="rebirth-project [Software System]" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#1168bd;fillColor=none;dashed=1;dashPattern=8 4;strokeWidth=2;fontColor=#1168bd;fontStyle=1;fontSize=12;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="180" y="100" width="900" height="600" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="spa" value="&lt;b&gt;React PWA&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[Container: React 19 + Vite]&lt;br/&gt;&lt;br/&gt;Single Page Application.&lt;br/&gt;Mobile-first, installabile&lt;br/&gt;su iPhone Safari.&lt;br/&gt;Feature modules.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="400" y="200" width="200" height="140" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="efai" value="&lt;b&gt;Edge Function: /api/ai&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[Container: Vercel Edge]&lt;br/&gt;&lt;br/&gt;Proxy sicuro per Gemini.&lt;br/&gt;GEMINI_API_KEY server-side.&lt;br/&gt;OpenRouter fallback opt-in.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="700" y="160" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="efst" value="&lt;b&gt;Edge Function: /api/storage&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[Container: Vercel Edge]&lt;br/&gt;&lt;br/&gt;CRUD su Upstash Redis.&lt;br/&gt;Bulk get/set support.&lt;br/&gt;App token auth.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="700" y="320" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sw" value="&lt;b&gt;Service Worker&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[Container: Browser]&lt;br/&gt;&lt;br/&gt;Workbox cache strategies.&lt;br/&gt;Cache-first assets.&lt;br/&gt;SWR per API calls.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="400" y="420" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ls" value="&lt;b&gt;localStorage&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[Container: Browser]&lt;br/&gt;&lt;br/&gt;Cache locale primaria.&lt;br/&gt;Zero latenza. Offline.&lt;br/&gt;Soggetta a eviction iOS.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="420" width="160" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="idb" value="&lt;b&gt;IndexedDB&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[Container: Browser]&lt;br/&gt;&lt;br/&gt;Cache feed RSS/Reddit.&lt;br/&gt;Ricette API cache.&lt;br/&gt;OpenLibrary cache.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168bd;strokeColor=#0b4884;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="200" width="160" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="upstash" value="&lt;b&gt;Upstash Redis&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External: Upstash]&lt;br/&gt;&lt;br/&gt;KV store server-side.&lt;br/&gt;Critical keys mirror.&lt;br/&gt;Free: 500K cmd/mo.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="980" y="310" width="160" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="gemini" value="&lt;b&gt;Gemini 2.0 Flash&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External: Google AI]&lt;br/&gt;&lt;br/&gt;LLM inference.&lt;br/&gt;1500 req/day free.&lt;br/&gt;1M token context.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="980" y="150" width="160" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="apis" value="&lt;b&gt;Content APIs&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External Systems]&lt;br/&gt;&lt;br/&gt;Open-Meteo · rss2json&lt;br/&gt;Reddit · OpenLibrary&lt;br/&gt;Spoonacular · USDA&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="310" width="160" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="shortcuts" value="&lt;b&gt;Apple Shortcuts&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External: iOS]&lt;br/&gt;&lt;br/&gt;Legge HealthKit.&lt;br/&gt;Apre app con URL params.&lt;br/&gt;Automazione 07:00.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="150" width="160" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="spa" target="efai">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a1l" value="HTTPS POST /api/ai" style="edgeLabel;html=1;fontSize=9;align=center;" vertex="1" connectable="0" parent="a1">
+          <mxGeometry relative="0.5" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="spa" target="efst">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2l" value="HTTPS /api/storage" style="edgeLabel;html=1;fontSize=9;" vertex="1" connectable="0" parent="a2">
+          <mxGeometry relative="0.5" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="efai" target="gemini">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="efst" target="upstash">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="spa" target="ls">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5l" value="R/W sync" style="edgeLabel;html=1;fontSize=9;" vertex="1" connectable="0" parent="a5">
+          <mxGeometry relative="0.5" as="geometry"/>
+        </mxCell>
+        <mxCell id="a6" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="spa" target="idb">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a6l" value="Cache feed" style="edgeLabel;html=1;fontSize=9;" vertex="1" connectable="0" parent="a6">
+          <mxGeometry relative="0.5" as="geometry"/>
+        </mxCell>
+        <mxCell id="a7" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="spa" target="apis">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a7l" value="Fetch feeds + meteo" style="edgeLabel;html=1;fontSize=9;" vertex="1" connectable="0" parent="a7">
+          <mxGeometry relative="0.5" as="geometry"/>
+        </mxCell>
+        <mxCell id="a8" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;dashed=1;fontSize=9;" edge="1" parent="1" source="shortcuts" target="spa">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a8l" value="URL params ?hksync=1..." style="edgeLabel;html=1;fontSize=9;" vertex="1" connectable="0" parent="a8">
+          <mxGeometry relative="0.5" as="geometry"/>
+        </mxCell>
+        <mxCell id="a9" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="sw" target="spa">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a9l" value="Offline assets" style="edgeLabel;html=1;fontSize=9;" vertex="1" connectable="0" parent="a9">
+          <mxGeometry relative="0.5" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

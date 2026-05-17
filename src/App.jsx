@@ -2,6 +2,7 @@ import { lazy, Suspense, useState, useEffect } from "react";
 import { C, FONT, appWrap } from "./shared/design/tokens.js";
 import { todayStr } from "./shared/utils/date.js";
 import { storageLoad, storageSave, syncFromRemote, pushToRemote } from "./shared/storage/index.js";
+import { runPendingMigrations } from "./shared/storage/migrationRunner.js";
 import BottomNav from "./shared/components/BottomNav.jsx";
 import ErrorBoundary from "./shared/components/ErrorBoundary.jsx";
 import Toast from "./shared/components/Toast.jsx";
@@ -89,6 +90,10 @@ export default function App() {
           // reflects whatever Upstash had at this moment.
           syncFromRemote().catch(() => {});
         }
+        // Schema migrations run silently between the sync and the first
+        // render so any new field/shape is already in place when the
+        // feature hooks read their slices.
+        await runPendingMigrations();
       } catch (err) {
         // Sync should never block boot. localStorage is still the
         // immediate cache, so the app keeps working without Upstash.
