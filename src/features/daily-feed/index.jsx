@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { C, FONT, btn, label } from "../../shared/design/tokens.js";
 import WeatherCard from "./components/WeatherCard.jsx";
 import FeedItemCard from "./components/FeedItemCard.jsx";
 import CategoryFilter from "./components/CategoryFilter.jsx";
 import SourceManager from "./components/SourceManager.jsx";
+import VirtualFeedList from "./components/VirtualFeedList.jsx";
 
 function fullDate() {
   return new Date().toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" });
@@ -18,6 +19,14 @@ export default function FeedTab({ feed }) {
     refresh, addSource, toggleSource, removeSource, reorderSource,
     markRead,
   } = feed;
+
+  // Stable callback so memoized FeedItemCards don't get re-renders when
+  // unrelated state changes.
+  const handleRead = useCallback((id) => markRead(id), [markRead]);
+  const renderItem = useCallback(
+    (item) => <FeedItemCard key={item.id} item={item} onRead={handleRead} />,
+    [handleRead],
+  );
 
   if (showManager) {
     return (
@@ -94,9 +103,7 @@ export default function FeedTab({ feed }) {
             </div>
           </div>
         ) : (
-          items.map((item) => (
-            <FeedItemCard key={item.id} item={item} onRead={markRead} />
-          ))
+          <VirtualFeedList key={filter ?? "all"} items={items} renderItem={renderItem} />
         )}
 
         <button

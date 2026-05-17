@@ -18,4 +18,12 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  // Vercel Edge / serverless functions run in a Node-flavoured runtime —
+  // they need access to `process.env` and friends, which aren't browser globals.
+  {
+    files: ['api/**/*.{js,mjs}'],
+    languageOptions: {
+      globals: { ...globals.node, ...globals.browser },
+    },
+  },
 ])

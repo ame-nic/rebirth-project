@@ -5,6 +5,7 @@
 
 import { MEAL_TARGETS } from "../engine/constants.js";
 import { getCachedOrFetch, TTL } from "./recipeCache.js";
+import { resilientFetch } from "../../../shared/utils/fetchUtils.js";
 
 const ENDPOINT = "https://api.spoonacular.com/recipes/complexSearch";
 
@@ -92,7 +93,8 @@ async function fetchSpoonacular(mealType, isWeekend) {
     cuisine:              "italian,mediterranean,european",
   });
 
-  const res = await fetch(`${ENDPOINT}?${params}`);
+  // Spoonacular's free tier is rate-limited; one retry only.
+  const res = await resilientFetch(`${ENDPOINT}?${params}`, {}, { retries: 1 });
   if (!res.ok) throw new Error(`Spoonacular ${res.status}`);
   const data = await res.json();
   return (data.results ?? []).map(spoonacularToRecipe);

@@ -30,6 +30,7 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff,woff2}'],
         runtimeCaching: [
+          // ── Static asset CDNs (long TTL, version-pinned) ─────────────
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
@@ -52,6 +53,49 @@ export default defineConfig({
             options: {
               cacheName: 'phosphor-icons',
               expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+          // ── Feed APIs (SWR — instant when cached, refresh in BG) ─────
+          {
+            urlPattern: /^https:\/\/api\.open-meteo\.com\//,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'weather-cache',
+              expiration: { maxEntries: 4, maxAgeSeconds: 30 * 60 },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/api\.rss2json\.com\//,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'rss-cache',
+              expiration: { maxEntries: 40, maxAgeSeconds: 4 * 60 * 60 },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/www\.reddit\.com\/r\//,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'reddit-cache',
+              expiration: { maxEntries: 20, maxAgeSeconds: 2 * 60 * 60 },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/api\.allorigins\.win\//,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'cors-proxy-cache',
+              networkTimeoutSeconds: 5,
+              expiration: { maxEntries: 20, maxAgeSeconds: 4 * 60 * 60 },
+            },
+          },
+          // ── Feed thumbnails (cap'd so feed images don't grow the SW cache forever) ─
+          {
+            urlPattern: ({ request }) => request.destination === 'image',
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'image-cache',
+              expiration: { maxEntries: 100, maxAgeSeconds: 7 * 24 * 60 * 60 },
             },
           },
         ],

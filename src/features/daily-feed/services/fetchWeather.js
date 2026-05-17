@@ -1,5 +1,7 @@
 /* Open-Meteo — no API key, no signup, CORS-friendly. */
 
+import { resilientFetch } from "../../../shared/utils/fetchUtils.js";
+
 const ENDPOINT = "https://api.open-meteo.com/v1/forecast";
 
 /* WMO weather codes → human-readable Italian descriptions (subset).
@@ -45,7 +47,7 @@ export async function fetchWeather(source) {
     + "weathercode,windspeed_10m,relativehumidity_2m"
     + "&timezone=Europe%2FRome&forecast_days=1";
 
-  const res = await fetch(url);
+  const res = await resilientFetch(url);
   if (!res.ok) throw new Error(`Open-Meteo ${res.status}`);
   const data = await res.json();
   const c = data.current;

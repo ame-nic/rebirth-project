@@ -1,10 +1,11 @@
-/* Reddit's public JSON endpoint works from the browser without auth.
-   We still wrap it in a User-Agent header per Reddit's etiquette guidance. */
+/* Reddit's public JSON endpoint works from the browser without auth. */
+
+import { resilientFetch } from "../../../shared/utils/fetchUtils.js";
 
 export async function fetchReddit(source) {
   const { subreddit, sort = "hot", limit = 5 } = source.config;
   const url = `https://www.reddit.com/r/${subreddit}/${sort}.json?limit=${limit}`;
-  const res = await fetch(url, { headers: { Accept: "application/json" } });
+  const res = await resilientFetch(url, { headers: { Accept: "application/json" } });
   if (!res.ok) throw new Error(`Reddit ${res.status}`);
   const json = await res.json();
   const posts = json?.data?.children || [];

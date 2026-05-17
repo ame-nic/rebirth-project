@@ -7,7 +7,7 @@ const TABS = [
   ["progressi",  "ph-chart-line-up",  "Progressi"],
 ];
 
-export default function BottomNav({ tab, onChange, feedUnread = 0 }) {
+export default function BottomNav({ tab, onChange, onHover, feedUnread = 0 }) {
   return (
     <nav
       style={{
@@ -21,6 +21,7 @@ export default function BottomNav({ tab, onChange, feedUnread = 0 }) {
         <button
           key={id}
           onClick={() => onChange(id)}
+          onPointerEnter={() => onHover?.(id)}
           style={{
             flex: 1, padding: "10px 0 8px", background: "none", border: "none",
             borderTop: tab === id ? `2px solid ${C.A}` : "2px solid transparent",

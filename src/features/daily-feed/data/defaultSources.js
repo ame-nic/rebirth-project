@@ -11,6 +11,7 @@ export const SOURCE_TYPES = {
 
 export const CATEGORY_LABELS = {
   italia:  "Italia",
+  cronaca: "Cronaca",
   tech:    "Tech",
   java:    "Java",
   ai:      "AI",
@@ -85,6 +86,24 @@ export const DEFAULT_SOURCES = [
   { id: "rss_anthropic", type: "rss", label: "Anthropic News",
     category: "ai", enabled: true, order: 18,
     config: { url: "https://www.anthropic.com/rss.xml" } },
+
+  // ── CRONACA ──────────────────────────────────────────────────────────────
+  // ANSA è l'agenzia di stampa nazionale — fonte primaria e autorevole.
+  { id: "rss_ansa_cronaca", type: "rss", label: "ANSA Cronaca",
+    category: "cronaca", enabled: true, order: 23,
+    config: { url: "https://www.ansa.it/sito/notizie/cronaca/cronaca_rss.xml" } },
+  // La Stampa — quotidiano nazionale storico (fondato 1867), sede Torino.
+  { id: "rss_lastampa_cronaca", type: "rss", label: "La Stampa",
+    category: "cronaca", enabled: true, order: 24,
+    config: { url: "https://www.lastampa.it/italia/cronaca/rss" } },
+  // AGI — Agenzia Giornalistica Italiana.
+  { id: "rss_agi_cronaca", type: "rss", label: "AGI Cronaca",
+    category: "cronaca", enabled: true, order: 25,
+    config: { url: "https://www.agi.it/cronaca/rss.xml" } },
+  // Off by default — Il Post è già presente in categoria Italia, evita duplicati.
+  { id: "rss_ilpost_cronaca", type: "rss", label: "Il Post — Cronaca",
+    category: "cronaca", enabled: false, order: 26,
+    config: { url: "https://www.ilpost.it/cronaca/feed/" } },
 
   // ── CALCIO ───────────────────────────────────────────────────────────────
   { id: "rss_gazzetta_calcio", type: "rss", label: "Gazzetta — Calcio",

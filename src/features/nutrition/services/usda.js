@@ -3,6 +3,7 @@
    Free tier 1000 calls/day, cached 7 days per ingredient name. */
 
 import { getCachedOrFetch, TTL } from "./recipeCache.js";
+import { resilientFetch } from "../../../shared/utils/fetchUtils.js";
 
 const ENDPOINT = "https://api.nal.usda.gov/fdc/v1/foods/search";
 
@@ -15,7 +16,7 @@ const NUTRIENT_IDS = { protein: 1003, kcal: 1008, carbs: 1005, fat: 1004 };
 async function fetchUSDA(ingredientName) {
   const key = import.meta.env.VITE_USDA_API_KEY;
   const url = `${ENDPOINT}?query=${encodeURIComponent(ingredientName)}&pageSize=1&api_key=${key}`;
-  const res = await fetch(url);
+  const res = await resilientFetch(url, {}, { retries: 1 });
   if (!res.ok) throw new Error(`USDA ${res.status}`);
   const data = await res.json();
   const food = data.foods?.[0];

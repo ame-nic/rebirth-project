@@ -1,7 +1,11 @@
 /* RSS fetch with rss2json primary + allorigins fallback.
    Browsers can't fetch raw RSS due to CORS, so we route through a proxy.
    rss2json returns parsed JSON (preferred). allorigins returns raw XML
-   wrapped in `{ contents }`. */
+   wrapped in `{ contents }`. All network calls go through resilientFetch
+   (timeout + retry + dedup). The XML parse path can optionally run in
+   a Web Worker — see parseInWorker(). */
+
+import { resilientFetch } from "../../../shared/utils/fetchUtils.js";
 
 const RSS2JSON   = "https://api.rss2json.com/v1/api.json";
 const ALLORIGINS = "https://api.allorigins.win/get";
@@ -28,7 +32,7 @@ function normalize(item, source) {
 
 async function viaRss2Json(source, limit = 8) {
   const endpoint = `${RSS2JSON}?rss_url=${encodeURIComponent(source.config.url)}&count=${limit}`;
-  const res  = await fetch(endpoint);
+  const res  = await resilientFetch(endpoint);
   if (!res.ok) throw new Error(`rss2json ${res.status}`);
   const data = await res.json();
   if (data.status !== "ok") throw new Error(data.message || "rss2json failed");
@@ -74,13 +78,54 @@ function parseXMLItems(xml, source) {
 
 async function viaAllOrigins(source) {
   const endpoint = `${ALLORIGINS}?url=${encodeURIComponent(source.config.url)}`;
-  const res  = await fetch(endpoint);
+  const res  = await resilientFetch(endpoint);
   if (!res.ok) throw new Error(`allorigins ${res.status}`);
   const data = await res.json();
   if (!data.contents) throw new Error("allorigins empty response");
+  // Try to parse in a Worker; fall back to main-thread DOMParser if
+  // the worker is unavailable (older Safari sometimes blocks workers
+  // in standalone PWA mode).
+  try {
+    const items = await parseInWorker(data.contents, source);
+    if (items) return items;
+  } catch {
+    /* fall through */
+  }
   const xml = new DOMParser().parseFromString(data.contents, "text/xml");
   if (xml.querySelector("parsererror")) throw new Error("XML parse error");
   return parseXMLItems(xml, source);
+}
+
+// Lazily-instantiated worker; one per session, message-based.
+let _worker = null;
+function getWorker() {
+  if (_worker !== null) return _worker;
+  try {
+    // Vite resolves ?worker imports to dedicated worker bundles.
+    _worker = new Worker(new URL("../workers/rssParser.worker.js", import.meta.url), { type: "module" });
+  } catch {
+    _worker = false; // sticky failure — don't keep retrying
+  }
+  return _worker;
+}
+
+function parseInWorker(xmlString, source) {
+  const w = getWorker();
+  if (!w) return null;
+  return new Promise((resolve, reject) => {
+    const id = `${source.id}_${Math.random().toString(36).slice(2, 8)}`;
+    const onMsg = (e) => {
+      if (e.data?.id !== id) return;
+      w.removeEventListener("message", onMsg);
+      if (e.data.ok) {
+        resolve(e.data.items.map((item) => normalize(item, source)));
+      } else {
+        reject(new Error(e.data.error || "worker parse failed"));
+      }
+    };
+    w.addEventListener("message", onMsg);
+    w.postMessage({ id, xmlString });
+  });
 }
 
 export async function fetchRSS(source) {

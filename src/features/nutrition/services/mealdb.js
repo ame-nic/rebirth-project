@@ -9,6 +9,7 @@
 
 import { getCachedOrFetch, TTL } from "./recipeCache.js";
 import { estimateMacros, isUSDAAvailable } from "./usda.js";
+import { resilientFetch } from "../../../shared/utils/fetchUtils.js";
 
 const BASE = "https://www.themealdb.com/api/json/v1/1";
 
@@ -61,14 +62,14 @@ function mealdbBasicToRecipe(meal, estimated, mealTypeHint) {
 }
 
 async function lookupMeal(id) {
-  const res = await fetch(`${BASE}/lookup.php?i=${id}`);
+  const res = await resilientFetch(`${BASE}/lookup.php?i=${id}`);
   if (!res.ok) throw new Error(`MealDB lookup ${res.status}`);
   const data = await res.json();
   return data.meals?.[0] ?? null;
 }
 
 async function fetchByIngredient(ingredient) {
-  const res = await fetch(`${BASE}/filter.php?i=${encodeURIComponent(ingredient)}`);
+  const res = await resilientFetch(`${BASE}/filter.php?i=${encodeURIComponent(ingredient)}`);
   if (!res.ok) throw new Error(`MealDB filter ${res.status}`);
   const data = await res.json();
   return data.meals ?? [];

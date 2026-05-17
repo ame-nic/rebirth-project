@@ -1,7 +1,12 @@
+import { memo } from "react";
 import { C, FONT } from "../../../shared/design/tokens.js";
 import { timeAgo } from "../utils/timeAgo.js";
+import LazyImage from "./LazyImage.jsx";
 
-export default function FeedItemCard({ item, onRead }) {
+/* memo'd because the feed re-renders frequently (scroll, background
+   revalidation, read state changes). Custom comparator: a card only
+   needs to re-render if its id, read state, or summary changed. */
+function FeedItemCardImpl({ item, onRead }) {
   return (
     <a
       href={item.url}
@@ -22,17 +27,7 @@ export default function FeedItemCard({ item, onRead }) {
       }}
     >
       {item.image ? (
-        <img
-          src={item.image}
-          alt=""
-          loading="lazy"
-          onError={(e) => { e.currentTarget.style.display = "none"; }}
-          style={{
-            width: 56, height: 56, borderRadius: 4,
-            objectFit: "cover", flexShrink: 0,
-            background: C.bg,
-          }}
-        />
+        <LazyImage src={item.image} width={56} height={56} />
       ) : (
         <div
           style={{
@@ -62,3 +57,9 @@ export default function FeedItemCard({ item, onRead }) {
     </a>
   );
 }
+
+export default memo(FeedItemCardImpl, (prev, next) =>
+  prev.item.id === next.item.id &&
+  prev.item.read === next.item.read &&
+  prev.onRead === next.onRead
+);
