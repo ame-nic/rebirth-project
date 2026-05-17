@@ -6,7 +6,6 @@ import { collectAllData } from "../services/assessmentData.js";
 import { loadOrRequestAssessment } from "../services/expertAssessment.js";
 
 const KEY_LOGS       = "rebirth_readiness_logs";
-const KEY_BASELINE   = "rebirth_hrv_baseline";          // owned by Layer 10
 const KEY_ASSESSMENT = "rebirth_ai_assessment";
 const ROLLING_DAYS   = 90;
 
@@ -15,21 +14,8 @@ function pruneLogs(logs) {
   return logs.slice(-ROLLING_DAYS);
 }
 
-async function computeActiveCalories7d(snapshots) {
-  if (!Array.isArray(snapshots)) return null;
-  const sevenAgo = new Date();
-  sevenAgo.setDate(sevenAgo.getDate() - 7);
-  const recent = snapshots.filter(
-    (s) => new Date(s.date) >= sevenAgo && Number.isFinite(s.active_calories),
-  );
-  return recent.length > 0
-    ? recent.reduce((sum, h) => sum + h.active_calories, 0)
-    : null;
-}
-
 export function useReadiness({ workoutLog, habits }) {
   const [logs, setLogs]             = useState([]);
-  const [baseline, setBaseline]     = useState(null);
   const [assessment, setAssessment] = useState(null);
   const [loadingAI, setLoadingAI]   = useState(false);
   const [loading, setLoading]       = useState(true);
@@ -38,27 +24,21 @@ export function useReadiness({ workoutLog, habits }) {
     let cancelled = false;
     Promise.all([
       storageLoad(KEY_LOGS, []),
-      storageLoad(KEY_BASELINE, null),
       storageLoad(KEY_ASSESSMENT, null),
-    ]).then(([l, b, a]) => {
+    ]).then(([l, a]) => {
       if (cancelled) return;
       setLogs(pruneLogs(l));
-      setBaseline(b);
       setAssessment(a);
       setLoading(false);
     });
     return () => { cancelled = true; };
   }, []);
 
-  /* Inputs is the subset Nicola fills in: sleepHours, sleepQuality,
+  /* Inputs is the subset Nicola fills in by hand: sleepHours, sleepQuality,
      energyLevel, mood, soreness. We enrich with workout cadence (from
-     workoutLog), habit completion (from useHabits), and the Apple Health
-     snapshot for today (read fresh from storage so the call is correct
-     even if useHealth's state hasn't propagated yet). */
+     workoutLog) and habit completion (from useHabits). No Apple Health —
+     the only signals are the ones the user reports. */
   const submitCheckin = useCallback(async (inputs) => {
-    const snaps = await storageLoad("rebirth_health_snapshots", []);
-    const healthToday = snaps.find((s) => s.date === todayStr()) || null;
-
     const sessionsThisWeek = computeSessionsThisWeek(workoutLog);
     const daysSinceLastSession = computeDaysSinceLastSession(workoutLog);
 
@@ -73,13 +53,6 @@ export function useReadiness({ workoutLog, habits }) {
 
     const enriched = {
       ...inputs,
-      hrv:              healthToday?.hrv_ms       ?? null,
-      restingHR:        healthToday?.resting_hr   ?? null,
-      stepsYesterday:   healthToday?.steps        ?? null,
-      activeCalories7d: await computeActiveCalories7d(snaps),
-      sleepHoursHealth: healthToday?.sleep_hours  ?? null,
-      baseHRV:          baseline?.avg7d           ?? null,
-      baseRestingHR:    baseline?.restingHR_avg7d ?? null,
       sessionsThisWeek,
       daysSinceLastSession,
       habitCompletionYesterday,
@@ -92,7 +65,7 @@ export function useReadiness({ workoutLog, habits }) {
     setLogs(next);
     await storageSave(KEY_LOGS, next);
     return score;
-  }, [logs, workoutLog, habits, baseline]);
+  }, [logs, workoutLog, habits]);
 
   const requestAssessment = useCallback(async (forceRefresh = false) => {
     setLoadingAI(true);
@@ -113,7 +86,6 @@ export function useReadiness({ workoutLog, habits }) {
 
   return {
     logs,
-    baseline,
     todayScore,
     todayInputs,
     level,

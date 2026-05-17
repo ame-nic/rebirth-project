@@ -31,7 +31,6 @@ Tutto gratuito.
 | Libri            | OpenLibrary API (no key)            | ✅       |
 | Ricette          | Spoonacular + TheMealDB + USDA      | ✅       |
 | News             | RSS / Reddit / NewsData / Guardian  | ✅       |
-| Apple Health     | Shortcuts → URL params bridge       | ✅       |
 | Charts           | Recharts                            | ✅       |
 
 **Nessun servizio a pagamento è accettabile.** Se una feature richiede
@@ -74,7 +73,6 @@ src/
     wellness/          readiness, AI expert assessment
     alterEgo/          identità, streak protection, weekly reflection
     habits/            abitudini atomiche, streaks
-    health/            Apple Health bridge via Shortcuts
     progress/          grafici peso, misurazioni corporee
     growth/            libri, corsi, skills, learning log, saved articles
   shared/
@@ -297,4 +295,4 @@ volta che cambia l'architettura, aggiornare in coppia:
 4. La sezione regole-migrazione se è stata applicata una migrazione
 
 Data ultimo aggiornamento: 2026-05-17
-Versione: 1.0.0
+Versione: 1.1.0 — rimossa integrazione Apple Health

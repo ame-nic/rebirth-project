@@ -29,9 +29,7 @@ const CRITICAL_KEYS = new Set([
   // Habits
   "rebirth_habits", "rebirth_habit_logs",
   // Wellness / readiness
-  "rebirth_readiness_logs", "rebirth_hrv_baseline",
-  // Health
-  "rebirth_health_snapshots",
+  "rebirth_readiness_logs",
   // Alter ego
   "rebirth_alter_ego",
   // Growth

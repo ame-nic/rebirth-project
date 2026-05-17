@@ -39,8 +39,11 @@ main.jsx
 
 ## Module layout
 
-`features/` — one folder per product area. Each owns its persisted
-slice, its hooks, its components. No global store.
+`features/` — one folder per product area (`training`, `nutrition`,
+`daily-feed`, `wellness`, `alterEgo`, `habits`, `progress`, `growth`).
+Each owns its persisted slice, its hooks, its components. No global
+store. `features/health/` existed up to migration #1 and has since
+been removed — see ADR-005.
 
 `shared/` — design tokens, storage layer, AI service, generic
 components. Anything imported from more than one feature folder lives
@@ -114,9 +117,35 @@ desktop and clash with a deliberate "Zeroth" warm-document aesthetic.
 **Decision:** Phosphor icons, loaded via CDN, used in every product
 surface. Emoji are allowed only in documentation and commit messages.
 
+### ADR-005 · Remove the Apple Health bridge
+
+**Status:** accepted (migration #1, 2026-05-17).
+
+**Context:** the Shortcuts → URL params bridge worked but was fragile
+in practice: Shortcuts permissions had to be reconfirmed periodically,
+URL length limits clipped batches, and the sleep numbers it produced
+disagreed with what Apple Health itself displayed often enough that
+the user lost trust in the data.
+
+**Decision:** strip the integration. Delete `features/health/`, remove
+`rebirth_health_snapshots` and `rebirth_hrv_baseline` from the schema,
+and have the AI Expert Assessment + readiness score consume only
+manually-entered data (morning check-in, workout log, body
+measurements, habit toggles). Migration #1 wipes the leftover keys
+locally and on Upstash on next boot.
+
+**Consequences:**
+- Less noisy signal — five fields are gone from the readiness inputs.
+  Weights in `score.js` are redistributed to sleep (45%, was 38%) and
+  feel (30%, was 28%); the HRV and RHR slots are gone.
+- AI prompt no longer claims "no Apple Watch" as a missing-data
+  fallback; the recovery section is now strictly self-reported.
+- One fewer Edge of integration to break.
+
 ## Non-goals (today)
 
 - Multi-user / auth
 - Real-time cross-device sync
 - Server-side rendering
 - A native iOS app
+- Wearable / HealthKit integration (removed; see ADR-005)

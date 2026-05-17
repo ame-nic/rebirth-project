@@ -26,11 +26,12 @@ catalogue otherwise.
 categories, virtual list, IndexedDB cache. Web Worker for XML parsing.
 
 ## Layer 4 — Readiness + AI Expert Assessment
-`features/wellness` · keys: `rebirth_readiness_logs`, `rebirth_hrv_baseline`, `rebirth_ai_assessment`
+`features/wellness` · keys: `rebirth_readiness_logs`, `rebirth_ai_assessment`
 
-Daily check-in (sleep, energy, mood, soreness) + optional HRV/RHR
-from Health, score 1..10, training recommendation, monthly AI expert
-assessment (cached 24h).
+Daily check-in (sleep hours + quality, energy, mood, soreness) →
+score 1..10 with training + lifestyle recommendation. Monthly AI
+expert assessment from the same data (cached 24h). All inputs are
+self-reported; Apple Health was removed in migration #1.
 
 ## Layer 5 — Body Measurements
 `features/progress` · keys: `weightLog_v5`, `rebirth_measurements`
@@ -51,12 +52,20 @@ Identity-statement greeting on Today, streak-protection alerts on
 Habits, milestone celebrations at 7 / 21 / 30 / 66 / 100 days, Sunday
 reflection card with per-statement adherence + optional AI message.
 
-## Layer 10 — Apple Health Bridge
-`features/health` · keys: `rebirth_health_snapshots`
+## Layer 10 — Apple Health Bridge ~~(removed in migration #1)~~
 
-Apple Shortcuts pipes Steps / Sleep / HRV / RHR / Active Calories /
-Stand Hours into the app via URL params. No HealthKit API key, no
-Apple developer account, no IAP. Daily morning Shortcut at 07:00.
+Originally piped Steps / Sleep / HRV / RHR / Active Calories from
+Apple Health into Readiness + the AI Expert Assessment via a Shortcuts
+URL-params bridge. Removed: the integration was fragile (URL length
+caps, Shortcuts permissions, sleep numbers that didn't match what
+Apple Health itself displayed) and Nicola judged it more trouble than
+it was worth.
+
+The AI assessment and the readiness score now consume *only*
+manually-entered data: the morning check-in, the workout log, body
+measurements, and habit toggles. Migration #1 wipes
+`rebirth_health_snapshots` and `rebirth_hrv_baseline` from every device
++ Upstash on next boot.
 
 ## Habits (cross-cutting)
 `features/habits` · keys: `rebirth_habits`, `rebirth_habit_logs`

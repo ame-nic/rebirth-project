@@ -51,14 +51,11 @@ function buildPrompt(data) {
   lines.push(`- Sessioni completate: ${data.sessionsLast30d}/${data.targetSessionsLast30d} (obiettivo 3/sett)`);
   lines.push(`- Progressione forza: ${formatProgression(data.progressionByExercise)}`);
   lines.push("");
-  lines.push("RECUPERO:");
+  lines.push("RECUPERO (autovalutato):");
   lines.push(`- Readiness medio: ${data.avgReadiness30d != null ? data.avgReadiness30d + "/10" : "non disponibile"}`);
   const trendIt = data.readinessTrend === "improving" ? "in miglioramento"
                 : data.readinessTrend === "declining" ? "in peggioramento" : "stabile";
   lines.push(`- Trend readiness: ${trendIt}`);
-  lines.push(`- Sonno medio: ${data.avgSleep30d != null ? data.avgSleep30d + "h/notte" : "non disponibile"}`);
-  lines.push(`- HRV medio: ${data.avgHRV30d != null ? data.avgHRV30d + "ms" : "non disponibile (no Apple Watch)"}`);
-  lines.push(`- Passi medi: ${data.avgSteps30d != null ? data.avgSteps30d.toLocaleString("it-IT") : "non disponibile"}`);
   lines.push("");
   lines.push("COMPOSIZIONE CORPOREA:");
   lines.push(`- Variazione peso 30gg: ${data.weightDelta30d > 0 ? "+" : ""}${data.weightDelta30d}kg`);

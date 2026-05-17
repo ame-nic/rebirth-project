@@ -58,21 +58,6 @@ function readinessTrend(readinessLogs) {
   return { avg, trend, count: r30.length };
 }
 
-function aggregateHealth(snapshots) {
-  const cutoff = daysAgo(30);
-  const window = snapshots.filter((s) => new Date(s.date) >= cutoff);
-  const avg = (arr, key) => {
-    const vals = arr.map((s) => s[key]).filter((v) => Number.isFinite(v));
-    if (vals.length === 0) return null;
-    return +(vals.reduce((s, v) => s + v, 0) / vals.length).toFixed(1);
-  };
-  return {
-    avgSleep30d: avg(window, "sleep_hours"),
-    avgHRV30d:   avg(window, "hrv_ms"),
-    avgSteps30d: avg(window, "steps") != null ? Math.round(avg(window, "steps")) : null,
-  };
-}
-
 function weightDelta(weightLog) {
   if (!Array.isArray(weightLog) || weightLog.length < 2) {
     return { delta: 0, current: weightLog?.[weightLog.length - 1]?.weight ?? null };
@@ -119,16 +104,21 @@ function mealAdherence(mealLog) {
 }
 
 /* The single entry point. Reads every storage slice we need and emits a
-   structured object ready to be templated into the AI prompt. */
+   structured object ready to be templated into the AI prompt.
+
+   All inputs are manual: workout log (the user logs each set),
+   readiness check-in (the user grades sleep / energy / mood / soreness
+   each morning), body measurements (the user enters waist / neck / weight
+   on a tape measure), and habit toggles. Nothing comes from Apple Health
+   any more — the AI only judges data the user has agreed to enter. */
 export async function collectAllData(habits = []) {
-  const [workoutLog, weightLog, habitLogs, healthSnapshots, mealLog, readinessLogs, measurements] = await Promise.all([
-    storageLoad("workoutLog_v5",             []),
-    storageLoad("weightLog_v5",              []),
-    storageLoad("rebirth_habit_logs",        []),
-    storageLoad("rebirth_health_snapshots",  []),
-    storageLoad("mealLog_v6",                {}),
-    storageLoad("rebirth_readiness_logs",    []),
-    storageLoad("rebirth_measurements",      []), // not shipped yet — passes through
+  const [workoutLog, weightLog, habitLogs, mealLog, readinessLogs, measurements] = await Promise.all([
+    storageLoad("workoutLog_v5",          []),
+    storageLoad("weightLog_v5",           []),
+    storageLoad("rebirth_habit_logs",     []),
+    storageLoad("mealLog_v6",             {}),
+    storageLoad("rebirth_readiness_logs", []),
+    storageLoad("rebirth_measurements",   []),
   ]);
 
   const cutoff30 = daysAgo(30);
@@ -137,7 +127,6 @@ export async function collectAllData(habits = []) {
 
   const { avg: avgReadiness30d, trend: trendReadiness } = readinessTrend(readinessLogs);
   const { delta: weightDelta30d, current: weightCurrent } = weightDelta(weightLog);
-  const { avgSleep30d, avgHRV30d, avgSteps30d } = aggregateHealth(healthSnapshots);
   const { rate30: habitCompletionRate30d, breakdown: habitBreakdown } = aggregateHabits(habitLogs, habits);
 
   const sortedM   = [...measurements].sort((a, b) => a.date.localeCompare(b.date));
@@ -174,9 +163,5 @@ export async function collectAllData(habits = []) {
 
     habitCompletionRate30d,
     habitBreakdown,
-
-    avgSleep30d,
-    avgHRV30d,
-    avgSteps30d,
   };
 }

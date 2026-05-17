@@ -123,42 +123,21 @@ type ReadinessLog = {
   date:   string;
   score:  number;  // 1..10
   inputs: {
-    sleepHours:        number;
-    sleepQuality:      number;  // 1..5
-    energyLevel:       number;  // 1..5
-    mood:              number;  // 1..5
-    soreness:          number;  // 1..5
-    hrv?:              number;
-    restingHR?:        number;
-    stepsYesterday?:   number;
-    activeCalories7d?: number;
-    sleepHoursHealth?: number;
+    sleepHours:               number;
+    sleepQuality:             number;  // 1..5
+    energyLevel:              number;  // 1..5
+    mood:                     number;  // 1..5
+    soreness:                 number;  // 1..5
+    sessionsThisWeek:         number;
+    daysSinceLastSession:     number;
+    habitCompletionYesterday: number;
+    totalActiveHabits:        number;
   };
 };
 ```
 
-### `rebirth_hrv_baseline`
-
-```ts
-type HrvBaseline = { ms7d: number; ms30d: number; updatedAt: string };
-```
-
-### `rebirth_health_snapshots`
-
-Owner: `features/health` · written by the Shortcuts bridge.
-
-```ts
-type HealthSnapshot = {
-  date:             string;
-  steps?:           number;
-  sleep_hours?:     number;
-  hrv_ms?:          number;
-  resting_hr?:      number;
-  active_calories?: number;
-  stand_hours?:     number;
-  source:           "shortcuts" | "manual";
-};
-```
+Manual inputs only. Apple Health was removed in migration #1; the AI
+assessment now scores nothing but data the user entered.
 
 ### `rebirth_alter_ego`
 

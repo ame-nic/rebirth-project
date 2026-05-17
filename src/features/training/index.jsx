@@ -6,7 +6,6 @@ import SwapSheet from "./SwapSheet.jsx";
 import { SESSIONS, getTodaySession } from "./data.js";
 import HabitsSnapshot from "../habits/components/HabitsSnapshot.jsx";
 import WeeklySummaryCard from "../habits/components/WeeklySummaryCard.jsx";
-import HealthCard from "../health/components/HealthCard.jsx";
 import ReadinessCard from "../wellness/ReadinessCard.jsx";
 import ExpertAssessmentCard from "../wellness/components/ExpertAssessmentCard.jsx";
 import AlterEgoGreeting from "../alterEgo/components/AlterEgoGreeting.jsx";
@@ -421,7 +420,7 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
   );
 }
 
-export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits, health, onOpenHealth, readiness, alterEgo, onOpenAlterEgo, onOpenSettings }) {
+export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits, readiness, alterEgo, onOpenAlterEgo, onOpenSettings }) {
   const todaySession = getTodaySession();
   const today = todayStr();
   const todayLog = workoutLog.find((w) => w.date === today);
@@ -556,11 +555,7 @@ export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, ha
         </div>
 
         {readiness && (
-          <ReadinessCard
-            readiness={readiness}
-            healthToday={health?.today}
-            baseline={readiness.baseline}
-          />
+          <ReadinessCard readiness={readiness} />
         )}
 
         {readiness && (
@@ -568,14 +563,6 @@ export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, ha
             assessment={readiness.assessment}
             loading={readiness.loadingAI}
             onRequest={readiness.requestAssessment}
-          />
-        )}
-
-        {health && (
-          <HealthCard
-            today={health.today}
-            lastSync={health.lastSync}
-            onOpen={onOpenHealth}
           />
         )}
 

@@ -22,7 +22,7 @@ function MicroTile({ icon, value, suffix, color, disabled }) {
   );
 }
 
-export default function ReadinessCard({ readiness, healthToday, baseline }) {
+export default function ReadinessCard({ readiness }) {
   const { todayScore, todayInputs, level, submitCheckin } = readiness;
   const [open, setOpen] = useState(false);
 
@@ -61,20 +61,11 @@ export default function ReadinessCard({ readiness, healthToday, baseline }) {
     );
   }
 
-  // Score known — render the rich card.
-  const sleepHrs = todayInputs?.sleepHoursHealth ?? todayInputs?.sleepHours;
+  // Score known — render the rich card. Manual inputs only.
+  const sleepHrs = todayInputs?.sleepHours;
   const energy   = todayInputs?.energyLevel;
+  const mood     = todayInputs?.mood;
   const soreness = todayInputs?.soreness;
-  const rhr      = todayInputs?.restingHR ?? healthToday?.resting_hr;
-  const steps    = todayInputs?.stepsYesterday ?? healthToday?.steps;
-  const hrv      = todayInputs?.hrv ?? healthToday?.hrv_ms;
-
-  let hrvTrend = null;
-  if (Number.isFinite(hrv) && baseline?.avg7d) {
-    if (hrv > baseline.avg7d * 1.05)      hrvTrend = "up";
-    else if (hrv < baseline.avg7d * 0.95) hrvTrend = "down";
-    else                                  hrvTrend = "flat";
-  }
 
   return (
     <>
@@ -111,25 +102,11 @@ export default function ReadinessCard({ readiness, healthToday, baseline }) {
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, marginBottom: 12 }}>
-          <MicroTile icon="ph-moon-stars"          value={sleepHrs != null ? `${sleepHrs}h` : "—"} suffix="sonno"   color={C.D} disabled={sleepHrs == null} />
-          <MicroTile icon="ph-lightning"           value={energy != null ? `${energy}/5` : "—"}    suffix="energia" color={C.sport} disabled={energy == null} />
-          <MicroTile icon="ph-heartbeat-bold"      value={soreness != null ? `${soreness}/5` : "—"} suffix="muscoli" color={C.C} disabled={soreness == null} />
-          <MicroTile icon="ph-heartbeat"           value={rhr != null ? `${rhr}` : "—"}             suffix="rhr"     color={C.A} disabled={rhr == null} />
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: FONT, fontSize: 11, color: C.txtMute }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <i className="ph ph-footprints" />
-            {steps != null ? steps.toLocaleString("it-IT") + " passi ieri" : "passi —"}
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <i className="ph ph-pulse" />
-            {hrv != null ? `HRV ${hrv} ms` : "HRV —"}
-            {hrvTrend === "up"   && <i className="ph ph-arrow-up"   style={{ color: C.C, fontSize: 10 }} />}
-            {hrvTrend === "down" && <i className="ph ph-arrow-down" style={{ color: C.D, fontSize: 10 }} />}
-            {hrvTrend === "flat" && <i className="ph ph-minus"      style={{ color: C.txtMute, fontSize: 10 }} />}
-          </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6 }}>
+          <MicroTile icon="ph-moon-stars"     value={sleepHrs != null ? `${sleepHrs}h` : "—"} suffix="sonno"   color={C.D}      disabled={sleepHrs == null} />
+          <MicroTile icon="ph-lightning"      value={energy != null ? `${energy}/5` : "—"}   suffix="energia" color={C.sport}  disabled={energy == null} />
+          <MicroTile icon="ph-smiley"         value={mood != null ? `${mood}/5` : "—"}       suffix="umore"   color={C.B}      disabled={mood == null} />
+          <MicroTile icon="ph-heartbeat-bold" value={soreness != null ? `${soreness}/5` : "—"} suffix="muscoli" color={C.C}   disabled={soreness == null} />
         </div>
       </div>
 

@@ -81,11 +81,7 @@
         <mxCell id="mw4" value="&lt;b&gt;Streak Protection&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Identity-framed nudges&lt;br/&gt;Non-shame approach&lt;br/&gt;Push notifications&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="980" y="460" width="180" height="90" as="geometry"/>
         </mxCell>
-        <mxCell id="mw5" value="&lt;b&gt;Wearable Integration&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Apple Health bridge&lt;br/&gt;Shortcuts automation&lt;br/&gt;HRV / RHR / Sleep&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="380" y="570" width="180" height="90" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="kg1" value="&lt;b&gt;Daily News Feed&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;RSS + Reddit sources&lt;br/&gt;Category filters&lt;br/&gt;Unread tracking&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+<mxCell id="kg1" value="&lt;b&gt;Daily News Feed&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;RSS + Reddit sources&lt;br/&gt;Category filters&lt;br/&gt;Unread tracking&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="380" y="700" width="180" height="90" as="geometry"/>
         </mxCell>
         <mxCell id="kg2" value="&lt;b&gt;Professional Growth&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Books + Courses&lt;br/&gt;Skills matrix&lt;br/&gt;Learning log&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">

@@ -39,14 +39,6 @@ Open the production URL on iPhone Safari → Share → **Add to Home
 Screen**. The Service Worker activates after the first visit and the
 app is fully usable offline (after the initial cache prime).
 
-## Step 4 — Apple Health Shortcut (optional)
-
-In Shortcuts, create an automation at 07:00 daily that reads
-HealthKit metrics and opens
-`https://<your-vercel-url>/?hksync=1&steps=...&hrv=...&sleep=...`.
-The bridge in `features/health` parses URL params on mount. Spec
-details in the Layer 10 prompt.
-
 ## Routine deploys
 
 `git push origin main` triggers Vercel. Pre-push discipline (per

@@ -14,7 +14,7 @@
    - For breaking shape changes, version the key (foo_v5 → foo_v6) and
      have the migration copy + transform in one pass. */
 
-import { storageLoad, storageSave } from "./index.js";
+import { storageLoad, storageSave, storageDelete } from "./index.js";
 
 const EXECUTED_KEY = "_migrations_executed";
 
@@ -41,6 +41,34 @@ const MIGRATIONS = [
     run: async () => {
       // Intentionally a no-op. Existence + bookkeeping is the whole point;
       // future migrations rely on this slot being present so #1 lands cleanly.
+    },
+  },
+  {
+    id: 1,
+    description:
+      "Remove Apple Health bridge — delete health snapshots and HRV baseline " +
+      "from both localStorage and Upstash. Readiness and AI assessment now " +
+      "rely only on user-entered data.",
+    run: async () => {
+      // storageDelete drops the local copy and (for keys that were in
+      // CRITICAL_KEYS *before* this migration) also DELETEs them on
+      // Upstash. We can't rely on the live CRITICAL_KEYS set here — it
+      // already excludes the legacy keys — so call the remote DELETE
+      // unconditionally.
+      try { localStorage.removeItem("rebirth_health_snapshots"); } catch { /* ignore */ }
+      try { localStorage.removeItem("rebirth_hrv_baseline"); } catch { /* ignore */ }
+      // Fire-and-forget the remote wipes. Failures are non-fatal — the
+      // migration is marked done either way; remote DELETE is idempotent
+      // and there's nothing to retry if Upstash never had the key.
+      const endpoint = "/api/storage";
+      const token = import.meta.env.VITE_APP_STORAGE_TOKEN ?? "";
+      const headers = token ? { "x-app-token": token } : {};
+      try { await fetch(`${endpoint}?key=rebirth_health_snapshots`, { method: "DELETE", headers }); } catch { /* ignore */ }
+      try { await fetch(`${endpoint}?key=rebirth_hrv_baseline`, { method: "DELETE", headers }); } catch { /* ignore */ }
+      // Touch the unused symbols so the linter doesn't object — they're
+      // available for future migrations even though this one doesn't
+      // need them.
+      void storageLoad; void storageSave; void storageDelete;
     },
   },
 ];

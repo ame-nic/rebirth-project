@@ -4,7 +4,6 @@ import { C, FONT, btn, card, label, pill } from "../../shared/design/tokens.js";
 import { storageLoad, storageSave } from "../../shared/storage/index.js";
 import { exportBackup } from "../../shared/storage/export.js";
 import { todayStr, fmtDate, getWeekStart } from "../../shared/utils/date.js";
-import HealthTrends from "../health/components/HealthTrends.jsx";
 import ExpertAssessmentCard from "../wellness/components/ExpertAssessmentCard.jsx";
 import Measurements from "./Measurements.jsx";
 import Growth from "../growth/Growth.jsx";
@@ -12,7 +11,7 @@ import { useMeasurements } from "./hooks/useMeasurements.js";
 
 const MEASUREMENT_REMINDER_DAYS = 28;
 
-export default function ProgressTab({ workoutLog, health, readiness, growth }) {
+export default function ProgressTab({ workoutLog, readiness, growth }) {
   const [weights, setWeights]     = useState([]);
   const [newW, setNewW]           = useState("95");
   const [showInput, setShowInput] = useState(false);
@@ -225,10 +224,6 @@ export default function ProgressTab({ workoutLog, health, readiness, growth }) {
             loading={readiness.loadingAI}
             onRequest={readiness.requestAssessment}
           />
-        )}
-
-        {health && health.snapshots && health.snapshots.length > 0 && (
-          <HealthTrends snapshots={health.snapshots} />
         )}
 
         <div style={card()}>

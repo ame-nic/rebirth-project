@@ -12,7 +12,6 @@ import { readCache } from "./features/daily-feed/services/cache.js";
 import { fetchSourceItems } from "./features/daily-feed/services/fetchSource.js";
 import { fetchWeather } from "./features/daily-feed/services/fetchWeather.js";
 import { useHabits } from "./features/habits/hooks/useHabits.js";
-import { useHealth } from "./features/health/hooks/useHealth.js";
 import { useReadiness } from "./features/wellness/hooks/useReadiness.js";
 import { useGrowth } from "./features/growth/hooks/useGrowth.js";
 import { useAlterEgo } from "./features/alterEgo/hooks/useAlterEgo.js";
@@ -28,7 +27,6 @@ const NutritionTab = lazy(() => import("./features/nutrition/index.jsx"));
 const ProgressTab  = lazy(() => import("./features/progress/index.jsx"));
 const FeedTab      = lazy(() => import("./features/daily-feed/index.jsx"));
 const HabitsTab    = lazy(() => import("./features/habits/index.jsx"));
-const HealthScreen   = lazy(() => import("./features/health/HealthScreen.jsx"));
 const AlterEgoScreen = lazy(() => import("./features/alterEgo/AlterEgoScreen.jsx"));
 const SettingsSheet  = lazy(() => import("./shared/components/SettingsSheet.jsx"));
 
@@ -41,7 +39,6 @@ function preloadTab(id) {
     case "feed":       return import("./features/daily-feed/index.jsx");
     case "progressi":  return import("./features/progress/index.jsx");
     case "abitudini":  return import("./features/habits/index.jsx");
-    case "salute":     return import("./features/health/HealthScreen.jsx");
     default:           return Promise.resolve();
   }
 }
@@ -60,15 +57,13 @@ export default function App() {
   const [workoutLog,    setWorkoutLog]    = useState([]);
   const [activeSession, setActiveSession] = useState(null);
   const [loading,       setLoading]       = useState(true);
-  const [healthOpen,    setHealthOpen]    = useState(false);
   const [alterEgoOpen,  setAlterEgoOpen]  = useState(false);
   const [settingsOpen,  setSettingsOpen]  = useState(false);
 
-  // Feed / Habits / Health / Readiness all live at root: cross-tab
+  // Feed / Habits / Readiness all live at root: cross-tab
   // affordances need their state regardless of which tab is active.
   const feed      = useFeed();
   const habits    = useHabits();
-  const health    = useHealth();
   const readiness = useReadiness({ workoutLog, habits: habits.habits });
   const growth    = useGrowth();
   const alterEgo  = useAlterEgo();
@@ -183,20 +178,6 @@ export default function App() {
     );
   }
 
-  if (healthOpen) {
-    return (
-      <>
-        <ErrorBoundary label="Salute">
-          <Suspense fallback={<TabFallback />}>
-            <HealthScreen health={health} onClose={() => setHealthOpen(false)} />
-          </Suspense>
-        </ErrorBoundary>
-        <Toast />
-        <UpdatePrompt />
-      </>
-    );
-  }
-
   if (alterEgoOpen) {
     return (
       <>
@@ -232,8 +213,6 @@ export default function App() {
               onLogCalcetto={handleCalcetto}
               habits={habits}
               onOpenHabits={() => setTab("abitudini")}
-              health={health}
-              onOpenHealth={() => setHealthOpen(true)}
               readiness={readiness}
               alterEgo={alterEgo}
               onOpenAlterEgo={() => setAlterEgoOpen(true)}
@@ -253,7 +232,7 @@ export default function App() {
         )}
         {tab === "progressi" && (
           <ErrorBoundary label="Progressi">
-            <ProgressTab workoutLog={workoutLog} health={health} readiness={readiness} growth={growth} />
+            <ProgressTab workoutLog={workoutLog} readiness={readiness} growth={growth} />
           </ErrorBoundary>
         )}
         {tab === "abitudini" && (

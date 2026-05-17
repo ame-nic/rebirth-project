@@ -64,14 +64,11 @@
         <mxCell id="f7" value="Alter Ego&lt;br/&gt;Identity&lt;br/&gt;AI Messages" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;align=center;" vertex="1" parent="1">
           <mxGeometry x="890" y="230" width="110" height="70" as="geometry"/>
         </mxCell>
-        <mxCell id="f8" value="Health&lt;br/&gt;Bridge&lt;br/&gt;Shortcuts" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=center;" vertex="1" parent="1">
+        <mxCell id="f9" value="Growth&lt;br/&gt;Books/Skills&lt;br/&gt;Learning" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=center;" vertex="1" parent="1">
           <mxGeometry x="140" y="320" width="110" height="70" as="geometry"/>
         </mxCell>
-        <mxCell id="f9" value="Growth&lt;br/&gt;Books/Skills&lt;br/&gt;Learning" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=center;" vertex="1" parent="1">
-          <mxGeometry x="265" y="320" width="110" height="70" as="geometry"/>
-        </mxCell>
         <mxCell id="f10" value="AI Coach&lt;br/&gt;Chat&lt;br/&gt;(planned)" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;align=center;" vertex="1" parent="1">
-          <mxGeometry x="390" y="320" width="110" height="70" as="geometry"/>
+          <mxGeometry x="265" y="320" width="110" height="70" as="geometry"/>
         </mxCell>
 
         <mxCell id="s1" value="Storage Service&lt;br/&gt;localStorage ↔ Upstash&lt;br/&gt;Migrations + Sync" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;align=center;" vertex="1" parent="1">
@@ -109,10 +106,6 @@
         <mxCell id="ex5" value="Spoonacular&lt;br/&gt;USDA · OpenLibrary" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;align=center;" vertex="1" parent="1">
           <mxGeometry x="740" y="690" width="130" height="60" as="geometry"/>
         </mxCell>
-        <mxCell id="ex6" value="Apple Health&lt;br/&gt;Via Shortcuts bridge" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;align=center;" vertex="1" parent="1">
-          <mxGeometry x="885" y="690" width="140" height="60" as="geometry"/>
-        </mxCell>
-
       </root>
     </mxGraphModel>
   </diagram>

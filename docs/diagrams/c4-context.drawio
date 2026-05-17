@@ -31,11 +31,7 @@
           <mxGeometry x="700" y="440" width="160" height="110" as="geometry"/>
         </mxCell>
 
-        <mxCell id="health" value="&lt;b&gt;Apple Health&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External System]&lt;br/&gt;&lt;br/&gt;Steps, Sleep, HRV&lt;br/&gt;Via Shortcuts bridge&lt;br/&gt;iPhone + Apple Watch&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="80" y="120" width="160" height="110" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="feeds" value="&lt;b&gt;Content APIs&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External Systems]&lt;br/&gt;&lt;br/&gt;RSS · Reddit · Open-Meteo&lt;br/&gt;OpenLibrary · Spoonacular&lt;br/&gt;USDA · NewsData&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
+<mxCell id="feeds" value="&lt;b&gt;Content APIs&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External Systems]&lt;br/&gt;&lt;br/&gt;RSS · Reddit · Open-Meteo&lt;br/&gt;OpenLibrary · Spoonacular&lt;br/&gt;USDA · NewsData&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="80" y="490" width="160" height="110" as="geometry"/>
         </mxCell>
 
@@ -51,13 +47,7 @@
         <mxCell id="a4" value="AI inference" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555555;fontColor=#555555;fontSize=10;" edge="1" parent="1" source="system" target="gemini">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="a5" value="Health sync via URL params" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555555;fontColor=#555555;fontSize=10;" edge="1" parent="1" source="health" target="system">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
         <mxCell id="a6" value="Fetches content" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555555;fontColor=#555555;fontSize=10;" edge="1" parent="1" source="system" target="feeds">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="a7" value="Opens Shortcuts" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555555;fontColor=#555555;fontSize=10;dashed=1;" edge="1" parent="1" source="person" target="health">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
 

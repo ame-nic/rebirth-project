@@ -20,9 +20,10 @@ Migrations are **silent** for the user. See `CLAUDE.md` → Regola 3.
 
 ## Migrations executed
 
-| ID  | Date       | Keys affected | Description                                                  | Prompt updated |
-|-----|------------|---------------|--------------------------------------------------------------|----------------|
-| 0   | 2026-05-17 | —             | Migration system smoke test — no-op marker that proves the runner ran. | n/a |
+| ID  | Date       | Keys affected                                  | Description                                                                                                                                                                            | Prompt updated |
+|-----|------------|------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|
+| 0   | 2026-05-17 | —                                              | Migration system smoke test — no-op marker that proves the runner ran.                                                                                                                | n/a            |
+| 1   | 2026-05-17 | `rebirth_health_snapshots`, `rebirth_hrv_baseline` | Remove Apple Health bridge. Wipes both keys from localStorage and Upstash. Readiness + AI Expert Assessment now consume only manually-entered data (check-in, body measurements, habits, training log). | n/a            |
 
 ---
 

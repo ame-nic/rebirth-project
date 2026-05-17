@@ -48,11 +48,7 @@
           <mxGeometry x="80" y="310" width="160" height="120" as="geometry"/>
         </mxCell>
 
-        <mxCell id="shortcuts" value="&lt;b&gt;Apple Shortcuts&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:10px'&gt;[External: iOS]&lt;br/&gt;&lt;br/&gt;Legge HealthKit.&lt;br/&gt;Apre app con URL params.&lt;br/&gt;Automazione 07:00.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#666666;fontColor=#ffffff;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="80" y="150" width="160" height="120" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="spa" target="efai">
+<mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="spa" target="efai">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
         <mxCell id="a1l" value="HTTPS POST /api/ai" style="edgeLabel;html=1;fontSize=9;align=center;" vertex="1" connectable="0" parent="a1">
@@ -86,12 +82,6 @@
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
         <mxCell id="a7l" value="Fetch feeds + meteo" style="edgeLabel;html=1;fontSize=9;" vertex="1" connectable="0" parent="a7">
-          <mxGeometry relative="0.5" as="geometry"/>
-        </mxCell>
-        <mxCell id="a8" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;dashed=1;fontSize=9;" edge="1" parent="1" source="shortcuts" target="spa">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="a8l" value="URL params ?hksync=1..." style="edgeLabel;html=1;fontSize=9;" vertex="1" connectable="0" parent="a8">
           <mxGeometry relative="0.5" as="geometry"/>
         </mxCell>
         <mxCell id="a9" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#555;fontSize=9;" edge="1" parent="1" source="sw" target="spa">
