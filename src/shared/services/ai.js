@@ -24,7 +24,11 @@ export async function callAI(prompt, systemPrompt = "", maxTokens = 300) {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         const { text, error } = await res.json();
-        if (error) throw new Error(error);
+        if (error) {
+            const err = new Error(error);
+            err.status = res.status;
+            throw err;
+        }
         return text;
 
     } catch (err) {

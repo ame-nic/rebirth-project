@@ -43,7 +43,17 @@ async function callGemini(prompt, systemPrompt, maxTokens) {
     { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }
   );
 
-  if (!res.ok) throw new Error(`Gemini ${res.status}`);
+  if (!res.ok) {
+    let detail = "";
+    try {
+      const errData = await res.json();
+      detail = JSON.stringify(errData);
+    } catch {
+      detail = await res.text();
+    }
+    console.error(`[api/ai] Gemini error ${res.status}:`, detail);
+    throw new Error(`Gemini ${res.status}: ${detail}`);
+  }
   const data = await res.json();
   return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ?? "";
 }
@@ -113,6 +123,13 @@ export default async function handler(req) {
 
   let text;
   let usedFallback = false;
+
+  // ── Diagnostics ──────────────────────────────────────────────────────────
+  console.log("[api/ai] Provider check:", {
+    hasGemini: !!process.env.GEMINI_API_KEY,
+    hasOpenRouter: !!process.env.OPENROUTER_API_KEY,
+    env: process.env.NODE_ENV
+  });
 
   try {
     text = await callGemini(promptRaw, systemPromptRaw, tokens);

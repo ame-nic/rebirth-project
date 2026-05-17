@@ -171,7 +171,9 @@ function FeedItemCardImpl({ item, onRead, saved = false }) {
           )}
           {!summaryLoading && summaryError && (
             <div style={{ fontSize: 12, color: C.txtSec, lineHeight: 1.5 }}>
-              Non sono riuscito a generare il riassunto.{" "}
+              {summaryError === "unavailable" 
+                ? "Servizio AI momentaneamente non disponibile." 
+                : "Non sono riuscito a generare il riassunto."}{" "}
               <button
                 onClick={handleRetry}
                 style={{ background: "none", border: "none", color: C.B, fontSize: 12, fontFamily: FONT, cursor: "pointer", padding: 0, textDecoration: "underline" }}
