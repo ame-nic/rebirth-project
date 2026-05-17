@@ -1,0 +1,39 @@
+src/shared/storage/index.js
+  s_4987b198c9213b::t_a63e235739575d 1-14,18-42,44-57,59-61,64,66,69,82-272
+src/features/training/index.jsx
+  s_4987b198c9213b::t_a162ef8bafebad 424
+  s_4987b198c9213b::t_b4a4473c9c0944 15
+  s_4987b198c9213b::t_681d349be2de09 538-539
+  s_4987b198c9213b::t_f29eef2d380f3b 485-501
+src/shared/components/SettingsSheet.jsx
+  s_4987b198c9213b::t_25bc518a41de78 1-165
+src/App.jsx
+  s_4987b198c9213b::t_081a021722081d 235
+  s_4987b198c9213b::t_d199ef764be6c3 76-99,102-104
+  s_4987b198c9213b::t_3d600c0d12ecf9 271-275
+  s_4987b198c9213b::t_7973f35cafb400 4
+  s_4987b198c9213b::t_8cab0ffa5361b3 32
+  s_4987b198c9213b::t_673f1c0eae3926 64
+src/shared/storage/useSyncStatus.js
+  s_4987b198c9213b::t_5989e7e7dceffe 1-26
+src/shared/components/OfflineBanner.jsx
+  s_4987b198c9213b::t_4fdba6961b951b 1-32
+api/storage.js
+  s_4987b198c9213b::t_fbb03824305399 1-138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "98dbb41bfd26877e5664c53898bd4151bd2f65a2",
+  "prompts": {},
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
