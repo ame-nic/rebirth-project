@@ -1,0 +1,38 @@
+import { C, FONT } from "../design/tokens.js";
+
+const TABS = [
+  ["oggi",       "ph-barbell",        "Oggi"],
+  ["nutrizione", "ph-fork-knife",     "Nutrizione"],
+  ["progressi",  "ph-chart-line-up",  "Progressi"],
+];
+
+export default function BottomNav({ tab, onChange }) {
+  return (
+    <nav
+      style={{
+        position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)",
+        width: "100%", maxWidth: 430, background: C.surf, borderTop: `1px solid ${C.border}`,
+        display: "flex", zIndex: 100,
+      }}
+    >
+      {TABS.map(([id, icon, lbl]) => (
+        <button
+          key={id}
+          onClick={() => onChange(id)}
+          style={{
+            flex: 1, padding: "10px 0 8px", background: "none", border: "none",
+            borderTop: tab === id ? `2px solid ${C.A}` : "2px solid transparent",
+            color: tab === id ? C.A : C.txtMute, cursor: "pointer",
+            fontSize: 9, fontFamily: FONT, letterSpacing: 1.5,
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
+            transition: "color 120ms cubic-bezier(0.22, 1, 0.36, 1)",
+            textTransform: "uppercase", fontWeight: 500,
+          }}
+        >
+          <i className={`ph ${icon}`} style={{ fontSize: 22 }} />
+          {lbl}
+        </button>
+      ))}
+    </nav>
+  );
+}

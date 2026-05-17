@@ -1,0 +1,166 @@
+import { useState, useEffect } from "react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar, Cell, CartesianGrid } from "recharts";
+import { C, FONT, card, label, pill } from "../../shared/design/tokens.js";
+import { storageLoad, storageSave } from "../../shared/storage/index.js";
+import { todayStr, fmtDate, getWeekStart } from "../../shared/utils/date.js";
+
+export default function ProgressTab({ workoutLog }) {
+  const [weights, setWeights]     = useState([]);
+  const [newW, setNewW]           = useState("95");
+  const [showInput, setShowInput] = useState(false);
+
+  useEffect(() => {
+    storageLoad("weightLog_v5", []).then(setWeights);
+  }, []);
+
+  async function addWeight() {
+    const val = parseFloat(newW);
+    if (!val) return;
+    const entry = { date: todayStr(), weight: val };
+    const updated = [...weights.filter((w) => w.date !== todayStr()), entry]
+      .sort((a, b) => a.date.localeCompare(b.date));
+    setWeights(updated);
+    await storageSave("weightLog_v5", updated);
+    setShowInput(false);
+  }
+
+  const weeklyData = (() => {
+    const map = {};
+    workoutLog.forEach((w) => {
+      const ws = getWeekStart(new Date(w.date));
+      const k = ws.toISOString().split("T")[0];
+      map[k] = (map[k] || 0) + 1;
+    });
+    return Object.entries(map)
+      .slice(-8)
+      .map(([date, count]) => ({ week: fmtDate(date), sessioni: count }));
+  })();
+
+  const adherencePct = () => {
+    if (workoutLog.length === 0) return 0;
+    const firstDate = new Date(workoutLog[0].date);
+    const weeks = Math.max(1, Math.round((new Date() - firstDate) / (7 * 24 * 3600 * 1000)));
+    return Math.min(100, Math.round((workoutLog.length / (weeks * 3)) * 100));
+  };
+
+  return (
+    <div>
+      <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "20px 18px 16px" }}>
+        <div style={{ ...label, marginBottom: 6 }}>
+          <span style={{ color: C.A }}>§</span>&nbsp;&nbsp;Progressi
+        </div>
+        <div style={{ fontSize: 22, color: C.txt, letterSpacing: "-0.02em" }}>Il tuo percorso.</div>
+      </div>
+
+      <div style={{ padding: "14px 14px 0" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 14 }}>
+          {[
+            ["Sessioni totali",  workoutLog.length,                                                   C.A],
+            ["Aderenza",         adherencePct() + "%",                                                 adherencePct() >= 80 ? C.C : adherencePct() >= 60 ? C.sport : C.A],
+            ["Peso attuale",     weights.length ? weights[weights.length - 1].weight + "kg" : "—",    C.D],
+            ["Sett. complete",   weeklyData.filter((w) => w.sessioni >= 3).length,                    C.gold],
+          ].map(([l, v, color]) => (
+            <div key={l} style={{ background: C.surf, border: `1px solid ${color}33`, borderRadius: 6, padding: "16px 14px", boxShadow: "0 1px 2px rgba(0, 0, 0, 0.4)" }}>
+              <div style={{ fontSize: 24, color, fontFamily: FONT, fontWeight: 500 }}>{v}</div>
+              <div style={{ fontSize: 9, color: C.txtMute, fontFamily: FONT, marginTop: 5, lineHeight: 1.4, textTransform: "uppercase", letterSpacing: 1 }}>
+                {l}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={card()}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <div style={label}>Peso corporeo</div>
+            <button
+              onClick={() => setShowInput(!showInput)}
+              style={{ background: C.surfHi, border: `1px solid ${C.border}`, borderRadius: 4, color: C.txtSec, padding: "5px 12px", fontSize: 11, cursor: "pointer", fontFamily: FONT, display: "inline-flex", alignItems: "center", gap: 6 }}
+            >
+              <i className="ph ph-plus" style={{ fontSize: 12 }} />
+              Registra
+            </button>
+          </div>
+          {showInput && (
+            <div style={{ display: "flex", gap: 8, marginBottom: 14, alignItems: "center" }}>
+              <button onClick={() => setNewW((w) => String(Math.max(0, parseFloat(w || 0) - 0.5).toFixed(1)))} style={{ width: 36, height: 36, borderRadius: 4, border: `1px solid ${C.border}`, background: C.surfHi, color: C.txtSec, fontSize: 18, cursor: "pointer" }}>−</button>
+              <input
+                type="number" value={newW} step="0.1"
+                onChange={(e) => setNewW(e.target.value)}
+                style={{ flex: 1, background: C.surfHi, border: `1px solid ${C.border}`, borderRadius: 4, color: C.txt, padding: "8px", fontSize: 18, fontFamily: FONT, textAlign: "center" }}
+              />
+              <button onClick={() => setNewW((w) => String((parseFloat(w || 0) + 0.5).toFixed(1)))} style={{ width: 36, height: 36, borderRadius: 4, border: `1px solid ${C.border}`, background: C.surfHi, color: C.txtSec, fontSize: 18, cursor: "pointer" }}>+</button>
+              <button onClick={addWeight} style={{ width: 36, height: 36, borderRadius: 4, border: "none", background: C.C, color: C.bg, fontSize: 16, cursor: "pointer" }}>✓</button>
+            </div>
+          )}
+          {weights.length >= 2 ? (
+            <ResponsiveContainer width="100%" height={130}>
+              <LineChart data={weights.slice(-14)}>
+                <CartesianGrid strokeDasharray="3 3" stroke={C.borderLo} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} tick={{ fill: C.txtMute, fontSize: 10 }} />
+                <YAxis domain={["dataMin - 2", "dataMax + 2"]} tick={{ fill: C.txtMute, fontSize: 10 }} width={34} />
+                <Tooltip contentStyle={{ background: C.surfHi, border: `1px solid ${C.border}`, borderRadius: 4, fontSize: 12 }} labelFormatter={fmtDate} formatter={(v) => [v + "kg", "Peso"]} />
+                <Line type="monotone" dataKey="weight" stroke={C.A} strokeWidth={2} dot={{ fill: C.A, r: 3 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <div style={{ textAlign: "center", padding: "20px 0", color: C.txtMute, fontSize: 13 }}>
+              Registra almeno 2 pesate per il grafico
+            </div>
+          )}
+        </div>
+
+        <div style={card()}>
+          <div style={{ ...label, marginBottom: 12 }}>Sessioni a settimana</div>
+          {weeklyData.length >= 2 ? (
+            <ResponsiveContainer width="100%" height={110}>
+              <BarChart data={weeklyData} barSize={18}>
+                <CartesianGrid strokeDasharray="3 3" stroke={C.borderLo} />
+                <XAxis dataKey="week" tick={{ fill: C.txtMute, fontSize: 10 }} />
+                <YAxis domain={[0, 4]} tick={{ fill: C.txtMute, fontSize: 10 }} width={18} />
+                <Tooltip contentStyle={{ background: C.surfHi, border: `1px solid ${C.border}`, borderRadius: 4, fontSize: 12 }} />
+                <Bar dataKey="sessioni" radius={[4, 4, 0, 0]}>
+                  {weeklyData.map((e, i) => (
+                    <Cell key={i} fill={e.sessioni >= 3 ? C.C : e.sessioni >= 2 ? C.sport : C.A} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div style={{ textAlign: "center", padding: "20px 0", color: C.txtMute, fontSize: 13 }}>
+              Completa sessioni per vedere le statistiche
+            </div>
+          )}
+          <div style={{ display: "flex", gap: 14, marginTop: 10 }}>
+            {[[C.C, "3+ sess."], [C.sport, "2 sess."], [C.A, "< 2"]].map(([c, l]) => (
+              <div key={l} style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                <div style={{ width: 8, height: 8, borderRadius: 2, background: c }} />
+                <span style={{ fontSize: 10, color: C.txtMute, fontFamily: FONT }}>{l}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {workoutLog.length > 0 && (
+          <div>
+            <div style={label}>Storico recente</div>
+            {[...workoutLog].reverse().slice(0, 8).map((w, i) => (
+              <div key={i} style={{ background: C.surf, border: `1px solid ${(w.color || C.sport) + "22"}`, borderRadius: 6, padding: "12px 14px", marginBottom: 6, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  {w.type === "SPORT" && <i className="ph ph-soccer-ball" style={{ color: C.sport, fontSize: 16 }} />}
+                  <div>
+                    <div style={{ fontSize: 13, color: C.txt }}>{w.type === "SPORT" ? "Calcetto / corsa" : w.title}</div>
+                    <div style={{ fontSize: 10, color: C.txtMute, fontFamily: FONT, marginTop: 2 }}>{fmtDate(w.date)}</div>
+                  </div>
+                </div>
+                <span style={pill(w.color || C.sport)}>
+                  {w.type === "SPORT" ? "Sport" : `Sess. ${w.id}`}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+        <div style={{ height: 12 }} />
+      </div>
+    </div>
+  );
+}

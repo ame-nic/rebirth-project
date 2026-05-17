@@ -1,0 +1,25 @@
+/* Zeroth-aligned base for rebirth-project.
+   The C tokens in App.jsx are the source of truth for surface colors;
+   these custom properties exist so the body/page paints before React mounts. */
+
+:root {
+  --bg-page: #14110D;
+  --fg-primary: #F0E6D2;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  color-scheme: dark;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.55;
+  font-feature-settings: "ss02", "calt", "zero";
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-page);
+  color: var(--fg-primary);
+}
