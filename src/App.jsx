@@ -11,6 +11,7 @@ import { readCache } from "./features/daily-feed/services/cache.js";
 import { fetchSourceItems } from "./features/daily-feed/services/fetchSource.js";
 import { fetchWeather } from "./features/daily-feed/services/fetchWeather.js";
 import { useHabits } from "./features/habits/hooks/useHabits.js";
+import { useHealth } from "./features/health/hooks/useHealth.js";
 
 // Each tab module is its own chunk. Recharts (Progress, ~150 KB) and
 // the recipe engine (Nutrition) are the biggest wins from splitting.
@@ -22,6 +23,7 @@ const NutritionTab = lazy(() => import("./features/nutrition/index.jsx"));
 const ProgressTab  = lazy(() => import("./features/progress/index.jsx"));
 const FeedTab      = lazy(() => import("./features/daily-feed/index.jsx"));
 const HabitsTab    = lazy(() => import("./features/habits/index.jsx"));
+const HealthScreen = lazy(() => import("./features/health/HealthScreen.jsx"));
 
 // Used by BottomNav for preload-on-hover. Triggering the dynamic import
 // here primes the chunk so the tap transition feels instant.
@@ -32,6 +34,7 @@ function preloadTab(id) {
     case "feed":       return import("./features/daily-feed/index.jsx");
     case "progressi":  return import("./features/progress/index.jsx");
     case "abitudini":  return import("./features/habits/index.jsx");
+    case "salute":     return import("./features/health/HealthScreen.jsx");
     default:           return Promise.resolve();
   }
 }
@@ -50,11 +53,13 @@ export default function App() {
   const [workoutLog,    setWorkoutLog]    = useState([]);
   const [activeSession, setActiveSession] = useState(null);
   const [loading,       setLoading]       = useState(true);
+  const [healthOpen,    setHealthOpen]    = useState(false);
 
-  // Feed and Habits both live at root: their state powers cross-tab
-  // affordances (Feed badge in BottomNav, Habits snapshot on Today).
+  // Feed / Habits / Health all live at root: cross-tab affordances need
+  // their state regardless of which tab is active.
   const feed   = useFeed();
   const habits = useHabits();
+  const health = useHealth();
 
   useEffect(() => {
     storageLoad("workoutLog_v5", []).then((v) => {
@@ -137,6 +142,20 @@ export default function App() {
     );
   }
 
+  if (healthOpen) {
+    return (
+      <>
+        <ErrorBoundary label="Salute">
+          <Suspense fallback={<TabFallback />}>
+            <HealthScreen health={health} onClose={() => setHealthOpen(false)} />
+          </Suspense>
+        </ErrorBoundary>
+        <Toast />
+        <UpdatePrompt />
+      </>
+    );
+  }
+
   return (
     <div style={appWrap}>
       <Suspense fallback={<TabFallback />}>
@@ -148,6 +167,8 @@ export default function App() {
               onLogCalcetto={handleCalcetto}
               habits={habits}
               onOpenHabits={() => setTab("abitudini")}
+              health={health}
+              onOpenHealth={() => setHealthOpen(true)}
             />
           </ErrorBoundary>
         )}
@@ -163,7 +184,7 @@ export default function App() {
         )}
         {tab === "progressi" && (
           <ErrorBoundary label="Progressi">
-            <ProgressTab workoutLog={workoutLog} />
+            <ProgressTab workoutLog={workoutLog} health={health} />
           </ErrorBoundary>
         )}
         {tab === "abitudini" && (

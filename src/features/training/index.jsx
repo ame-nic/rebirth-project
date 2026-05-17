@@ -6,6 +6,7 @@ import SwapSheet from "./SwapSheet.jsx";
 import { SESSIONS, getTodaySession } from "./data.js";
 import HabitsSnapshot from "../habits/components/HabitsSnapshot.jsx";
 import WeeklySummaryCard from "../habits/components/WeeklySummaryCard.jsx";
+import HealthCard from "../health/components/HealthCard.jsx";
 
 function computeStreak(workoutLog) {
   let streak = 0;
@@ -414,7 +415,7 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
   );
 }
 
-export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits }) {
+export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits, health, onOpenHealth }) {
   const todaySession = getTodaySession();
   const today = todayStr();
   const todayLog = workoutLog.find((w) => w.date === today);
@@ -527,6 +528,14 @@ export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, ha
             </div>
           ))}
         </div>
+
+        {health && (
+          <HealthCard
+            today={health.today}
+            lastSync={health.lastSync}
+            onOpen={onOpenHealth}
+          />
+        )}
 
         {habits && habits.habits.length > 0 && (
           <HabitsSnapshot

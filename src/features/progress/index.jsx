@@ -4,8 +4,9 @@ import { C, FONT, btn, card, label, pill } from "../../shared/design/tokens.js";
 import { storageLoad, storageSave } from "../../shared/storage/index.js";
 import { exportBackup } from "../../shared/storage/export.js";
 import { todayStr, fmtDate, getWeekStart } from "../../shared/utils/date.js";
+import HealthTrends from "../health/components/HealthTrends.jsx";
 
-export default function ProgressTab({ workoutLog }) {
+export default function ProgressTab({ workoutLog, health }) {
   const [weights, setWeights]     = useState([]);
   const [newW, setNewW]           = useState("95");
   const [showInput, setShowInput] = useState(false);
@@ -140,6 +141,10 @@ export default function ProgressTab({ workoutLog }) {
             ))}
           </div>
         </div>
+
+        {health && health.snapshots && health.snapshots.length > 0 && (
+          <HealthTrends snapshots={health.snapshots} />
+        )}
 
         <div style={card()}>
           <div style={{ ...label, marginBottom: 8 }}>Backup</div>
