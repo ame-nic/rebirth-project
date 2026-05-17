@@ -72,10 +72,7 @@
         <mxCell id="mw1" value="&lt;b&gt;Atomic Habits&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Habit tracking&lt;br/&gt;Streak management&lt;br/&gt;Contribution graph&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="380" y="460" width="180" height="90" as="geometry"/>
         </mxCell>
-        <mxCell id="mw2" value="&lt;b&gt;Alter Ego System&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Identity statements&lt;br/&gt;Daily affirmation&lt;br/&gt;Milestone celebration&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry x="580" y="460" width="180" height="90" as="geometry"/>
-        </mxCell>
-        <mxCell id="mw3" value="&lt;b&gt;Weekly Ritual&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Sunday review&lt;br/&gt;Goal reflection&lt;br/&gt;Next week planning&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+<mxCell id="mw3" value="&lt;b&gt;Weekly Ritual&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Sunday review&lt;br/&gt;Goal reflection&lt;br/&gt;Next week planning&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="780" y="460" width="180" height="90" as="geometry"/>
         </mxCell>
         <mxCell id="mw4" value="&lt;b&gt;Streak Protection&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Identity-framed nudges&lt;br/&gt;Non-shame approach&lt;br/&gt;Push notifications&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
@@ -87,7 +84,7 @@
         <mxCell id="kg2" value="&lt;b&gt;Professional Growth&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Books + Courses&lt;br/&gt;Skills matrix&lt;br/&gt;Learning log&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="580" y="700" width="180" height="90" as="geometry"/>
         </mxCell>
-        <mxCell id="kg3" value="&lt;b&gt;Content Curation&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Article bookmarking&lt;br/&gt;Annotation&lt;br/&gt;AI summaries&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+        <mxCell id="kg3" value="&lt;b&gt;Content Curation&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Article bookmarking&lt;br/&gt;AI summary per row&lt;br/&gt;Save for later&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="780" y="700" width="180" height="90" as="geometry"/>
         </mxCell>
         <mxCell id="kg4" value="&lt;b&gt;Contextual Weather&lt;/b&gt;&lt;br/&gt;&lt;font style='font-size:9px'&gt;Open-Meteo Milano&lt;br/&gt;Training suggestion&lt;br/&gt;No API key needed&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">

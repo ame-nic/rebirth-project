@@ -30,8 +30,6 @@ const CRITICAL_KEYS = new Set([
   "rebirth_habits", "rebirth_habit_logs",
   // Wellness / readiness
   "rebirth_readiness_logs",
-  // Alter ego
-  "rebirth_alter_ego",
   // Growth
   "rebirth_books", "rebirth_courses", "rebirth_skills",
   "rebirth_weekly_learning", "rebirth_saved_articles",
@@ -42,9 +40,9 @@ const CRITICAL_KEYS = new Set([
 // Explicitly local-only. Mostly AI/cache slices that regenerate cheaply.
 const EPHEMERAL_KEYS = new Set([
   "rebirth_ai_assessment",
-  "rebirth_weekly_ai_message",
   "rebirth_feed_read",
   "rebirth_feed_last_day",
+  "rebirth_feed_summaries",
   "rebirth_recent_recipes",
 ]);
 

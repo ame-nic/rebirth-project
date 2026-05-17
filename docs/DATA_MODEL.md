@@ -139,30 +139,6 @@ type ReadinessLog = {
 Manual inputs only. Apple Health was removed in migration #1; the AI
 assessment now scores nothing but data the user entered.
 
-### `rebirth_alter_ego`
-
-Owner: `features/alterEgo` · `useAlterEgo`.
-
-```ts
-type AlterEgo = {
-  name:                string;
-  description:         string;
-  identity_statements: IdentityStatement[];
-  created_at:          string;
-  color:               string;  // accent hex
-  emoji:               string;
-};
-
-type IdentityStatement = {
-  id:           string;
-  text:         string;
-  linked_habit: string | null;  // habit id, optional
-  category:     string;
-  active:       boolean;
-  order:        number;
-};
-```
-
 ### `rebirth_books` / `rebirth_courses` / `rebirth_skills` / `rebirth_weekly_learning` / `rebirth_saved_articles`
 
 Owner: `features/growth` · `useGrowth`.
@@ -234,16 +210,16 @@ type SavedRecipe = {
 
 ## Local-only keys (EPHEMERAL_KEYS)
 
-| Key                           | Type      | TTL    | Notes                                  |
-|-------------------------------|-----------|--------|----------------------------------------|
-| `rebirth_ai_assessment`       | object    | 24h    | Cached AI expert assessment            |
-| `rebirth_weekly_ai_message`   | object    | 7d     | Alter ego weekly message (ISO week)    |
-| `rebirth_feed_read`           | string[]  | cap 500| Read article ids                       |
-| `rebirth_feed_last_day`       | string    | ∞      | Day key for "Today vs Yesterday" group |
-| `rebirth_recent_recipes`      | object[]  | cap 50 | Anti-repeat queue                      |
-| `_migrations_executed`        | number[]  | ∞      | Migration ids already run              |
-| `_last_sync`                  | string    | ∞      | ISO timestamp of last Upstash sync     |
-| `_upstash_migration_done`     | string    | ∞      | First-boot Upstash migration flag      |
+| Key                           | Type      | TTL     | Notes                                          |
+|-------------------------------|-----------|---------|------------------------------------------------|
+| `rebirth_ai_assessment`       | object    | 24h     | Cached AI expert assessment                    |
+| `rebirth_feed_read`           | string[]  | cap 500 | Read article ids                               |
+| `rebirth_feed_last_day`       | string    | ∞       | Day key for "Today vs Yesterday" group         |
+| `rebirth_feed_summaries`      | object    | cap 200 | Per-article AI summary cache (id → {text, generatedAt}) |
+| `rebirth_recent_recipes`      | object[]  | cap 50  | Anti-repeat queue                              |
+| `_migrations_executed`        | number[]  | ∞       | Migration ids already run                      |
+| `_last_sync`                  | string    | ∞       | ISO timestamp of last Upstash sync             |
+| `_upstash_migration_done`     | string    | ∞       | First-boot Upstash migration flag              |
 
 ## Out-of-band caches (IndexedDB)
 

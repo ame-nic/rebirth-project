@@ -24,6 +24,7 @@ Migrations are **silent** for the user. See `CLAUDE.md` → Regola 3.
 |-----|------------|------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------|
 | 0   | 2026-05-17 | —                                              | Migration system smoke test — no-op marker that proves the runner ran.                                                                                                                | n/a            |
 | 1   | 2026-05-17 | `rebirth_health_snapshots`, `rebirth_hrv_baseline` | Remove Apple Health bridge. Wipes both keys from localStorage and Upstash. Readiness + AI Expert Assessment now consume only manually-entered data (check-in, body measurements, habits, training log). | n/a            |
+| 2   | 2026-05-17 | `rebirth_alter_ego`, `rebirth_weekly_ai_message` (local-only) | Remove alter ego feature. Deletes `rebirth_alter_ego` locally + on Upstash, and drops the local-only weekly AI message cache.                                                                            | n/a            |
 
 ---
 

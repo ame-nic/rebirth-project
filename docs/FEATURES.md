@@ -20,10 +20,16 @@ Spoonacular + TheMealDB + USDA when keys are present; graceful local
 catalogue otherwise.
 
 ## Layer 3 — Daily Feed
-`features/daily-feed` · keys: `rebirth_feed_sources`, `rebirth_feed_read`, `rebirth_feed_last_day`
+`features/daily-feed` · keys: `rebirth_feed_sources`, `rebirth_feed_read`, `rebirth_feed_last_day`, `rebirth_feed_summaries`
 
 22 default sources (RSS + Reddit + weather), Italian-language
 categories, virtual list, IndexedDB cache. Web Worker for XML parsing.
+
+Per-article AI summary: every feed row has a sparkle button. On click
+the card expands and calls `/api/ai` (Gemini, 3-sentence Italian
+summary) using the article title + RSS description as context. The
+result is cached locally (`rebirth_feed_summaries`, cap 200) so
+re-opening the same article doesn't re-burn an AI call.
 
 ## Layer 4 — Readiness + AI Expert Assessment
 `features/wellness` · keys: `rebirth_readiness_logs`, `rebirth_ai_assessment`
@@ -45,12 +51,14 @@ Recomp chart over time.
 Books (OpenLibrary covers), courses, 1..5 skills matrix, weekly
 learning log, articles saved from Feed.
 
-## Layer 9 — Alter Ego
-`features/alterEgo` · keys: `rebirth_alter_ego`, `rebirth_weekly_ai_message`
+## Layer 9 — Alter Ego ~~(removed in migration #2)~~
 
-Identity-statement greeting on Today, streak-protection alerts on
-Habits, milestone celebrations at 7 / 21 / 30 / 66 / 100 days, Sunday
-reflection card with per-statement adherence + optional AI message.
+Originally introduced an identity-statement greeting on Today,
+streak-protection alerts on Habits, milestone celebrations at
+7/21/30/66/100, and a Sunday reflection card with per-statement
+adherence + an opt-in AI message. Removed: the design didn't match
+how Nicola actually uses the app. Migration #2 wipes the persisted
+alter-ego configuration on next boot.
 
 ## Layer 10 — Apple Health Bridge ~~(removed in migration #1)~~
 

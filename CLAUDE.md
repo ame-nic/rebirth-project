@@ -69,9 +69,8 @@ src/
   features/
     training/          allenamento, sessioni, swap esercizi
     nutrition/         piano pasti, ricette, engine
-    daily-feed/        RSS, Reddit, meteo
+    daily-feed/        RSS, Reddit, meteo, riassunto AI per articolo
     wellness/          readiness, AI expert assessment
-    alterEgo/          identità, streak protection, weekly reflection
     habits/            abitudini atomiche, streaks
     progress/          grafici peso, misurazioni corporee
     growth/            libri, corsi, skills, learning log, saved articles
@@ -295,4 +294,4 @@ volta che cambia l'architettura, aggiornare in coppia:
 4. La sezione regole-migrazione se è stata applicata una migrazione
 
 Data ultimo aggiornamento: 2026-05-17
-Versione: 1.1.0 — rimossa integrazione Apple Health
+Versione: 1.2.0 — rimosso Alter Ego; aggiunto AI summary per articolo feed

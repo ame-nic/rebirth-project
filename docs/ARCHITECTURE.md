@@ -40,10 +40,10 @@ main.jsx
 ## Module layout
 
 `features/` — one folder per product area (`training`, `nutrition`,
-`daily-feed`, `wellness`, `alterEgo`, `habits`, `progress`, `growth`).
-Each owns its persisted slice, its hooks, its components. No global
-store. `features/health/` existed up to migration #1 and has since
-been removed — see ADR-005.
+`daily-feed`, `wellness`, `habits`, `progress`, `growth`). Each owns
+its persisted slice, its hooks, its components. No global store.
+`features/health/` was removed in migration #1 (ADR-005);
+`features/alterEgo/` in migration #2 (ADR-006).
 
 `shared/` — design tokens, storage layer, AI service, generic
 components. Anything imported from more than one feature folder lives
@@ -116,6 +116,54 @@ desktop and clash with a deliberate "Zeroth" warm-document aesthetic.
 
 **Decision:** Phosphor icons, loaded via CDN, used in every product
 surface. Emoji are allowed only in documentation and commit messages.
+
+### ADR-006 · Remove the alter-ego feature
+
+**Status:** accepted (migration #2, 2026-05-17).
+
+**Context:** Layer 9 introduced an identity-driven greeting, streak
+protection, milestone celebrations, and a Sunday reflection card.
+After living with it, Nicola judged the design wrong for how he
+actually uses the app — too many cross-tab surfaces tied to a single
+opt-in configuration.
+
+**Decision:** delete `features/alterEgo/`, strip every cross-tab hook
+(`useAlterEgo`, `MilestoneCelebration`, `AlterEgoGreeting`,
+`AlterEgoWeeklyCard`, `StreakProtectionList`), remove the milestone
+event from `useHabits`, drop `rebirth_alter_ego` from CRITICAL_KEYS,
+drop `rebirth_weekly_ai_message` from EPHEMERAL_KEYS. Migration #2
+wipes the persisted slice locally + on Upstash.
+
+**Consequences:**
+- Today and Habits tabs lose the identity-themed cards. The greeting
+  is now just the date and the day's training intent.
+- The habit:milestone CustomEvent is gone — no other listener consumed
+  it, so this is mechanical.
+- The AI Coach roadmap stays open; identity-driven framing may return
+  in a different shape later.
+
+### ADR-007 · AI summary per feed article
+
+**Status:** accepted (commit alongside ADR-006).
+
+**Context:** when the feed renders 50+ headlines from RSS sources, the
+RSS `description` is often a single line or missing entirely. Nicola
+wanted to triage articles without opening every link.
+
+**Decision:** add a sparkle button to every `FeedItemCard`. On click,
+expand a panel and call `/api/ai` with a 3-sentence Italian summary
+prompt against the title + description. Cache the result in
+`rebirth_feed_summaries` (local-only, cap 200, newest-first eviction)
+so re-opening the same article never re-burns an AI call. Failures
+degrade gracefully — a Retry link is offered.
+
+**Consequences:**
+- Roughly one Gemini call per article the user expands. The free tier
+  is fine: the user reads ~10 summaries/day worst case, well under the
+  1500 req/day limit.
+- The summary panel is rendered inline inside the `<a>` card, with
+  `stopPropagation` on the content so clicking the summary text
+  doesn't open the article.
 
 ### ADR-005 · Remove the Apple Health bridge
 

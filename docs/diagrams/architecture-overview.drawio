@@ -49,7 +49,7 @@
         <mxCell id="f2" value="Nutrition&lt;br/&gt;Recipes&lt;br/&gt;Meal Plan" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=center;" vertex="1" parent="1">
           <mxGeometry x="265" y="230" width="110" height="70" as="geometry"/>
         </mxCell>
-        <mxCell id="f3" value="Daily Feed&lt;br/&gt;RSS/Reddit&lt;br/&gt;Weather" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=center;" vertex="1" parent="1">
+        <mxCell id="f3" value="Daily Feed&lt;br/&gt;RSS/Reddit&lt;br/&gt;AI Summary" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=center;" vertex="1" parent="1">
           <mxGeometry x="390" y="230" width="110" height="70" as="geometry"/>
         </mxCell>
         <mxCell id="f4" value="Progress&lt;br/&gt;Charts&lt;br/&gt;Measurements" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=center;" vertex="1" parent="1">
@@ -61,10 +61,7 @@
         <mxCell id="f6" value="Readiness&lt;br/&gt;Check-in&lt;br/&gt;AI Assessment" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;align=center;" vertex="1" parent="1">
           <mxGeometry x="765" y="230" width="110" height="70" as="geometry"/>
         </mxCell>
-        <mxCell id="f7" value="Alter Ego&lt;br/&gt;Identity&lt;br/&gt;AI Messages" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;align=center;" vertex="1" parent="1">
-          <mxGeometry x="890" y="230" width="110" height="70" as="geometry"/>
-        </mxCell>
-        <mxCell id="f9" value="Growth&lt;br/&gt;Books/Skills&lt;br/&gt;Learning" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=center;" vertex="1" parent="1">
+<mxCell id="f9" value="Growth&lt;br/&gt;Books/Skills&lt;br/&gt;Learning" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=center;" vertex="1" parent="1">
           <mxGeometry x="140" y="320" width="110" height="70" as="geometry"/>
         </mxCell>
         <mxCell id="f10" value="AI Coach&lt;br/&gt;Chat&lt;br/&gt;(planned)" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;align=center;" vertex="1" parent="1">

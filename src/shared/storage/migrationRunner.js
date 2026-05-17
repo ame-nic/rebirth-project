@@ -71,6 +71,21 @@ const MIGRATIONS = [
       void storageLoad; void storageSave; void storageDelete;
     },
   },
+  {
+    id: 2,
+    description:
+      "Remove alter ego feature — delete rebirth_alter_ego from " +
+      "localStorage and Upstash, and drop the local-only weekly AI " +
+      "message cache that fed it.",
+    run: async () => {
+      try { localStorage.removeItem("rebirth_alter_ego"); } catch { /* ignore */ }
+      try { localStorage.removeItem("rebirth_weekly_ai_message"); } catch { /* ignore */ }
+      const endpoint = "/api/storage";
+      const token = import.meta.env.VITE_APP_STORAGE_TOKEN ?? "";
+      const headers = token ? { "x-app-token": token } : {};
+      try { await fetch(`${endpoint}?key=rebirth_alter_ego`, { method: "DELETE", headers }); } catch { /* ignore */ }
+    },
+  },
 ];
 
 export async function runPendingMigrations() {
