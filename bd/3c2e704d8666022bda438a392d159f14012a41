@@ -1,0 +1,38 @@
+src/features/progress/components/MeasurementForm.jsx
+  s_4987b198c9213b::t_5236fc336ffdf5 1-178
+src/features/progress/Measurements.jsx
+  s_4987b198c9213b::t_6b439e8175c9a5 1-171
+src/features/progress/hooks/useMeasurements.js
+  s_4987b198c9213b::t_e014dd80a90f5e 1-58,67-73,75-78
+  s_4987b198c9213b::t_7ca176137094aa 59-66,74
+src/features/progress/components/RecompositionChart.jsx
+  s_4987b198c9213b::t_39ed25e729d0e2 1-50
+src/features/progress/index.jsx
+  s_4987b198c9213b::t_1e81b72fe16bec 69-106,108-123
+  s_4987b198c9213b::t_11249b0b529cc4 9-12,18-20,22
+  s_4987b198c9213b::t_95ad69d5986bd7 259
+  s_4987b198c9213b::t_7309d5c899b707 21,23-24
+  s_4987b198c9213b::t_2997880cf61b65 107
+src/features/progress/components/MeasurementTrends.jsx
+  s_4987b198c9213b::t_078f8a93010bad 1-80
+src/features/progress/utils/bodyFat.js
+  s_4987b198c9213b::t_0807830234a70a 1-58
+src/features/progress/components/MeasurementSummary.jsx
+  s_4987b198c9213b::t_cb452e69b599f5 1-93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "bd3c2e704d8666022bda438a392d159f14012a41",
+  "prompts": {},
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
