@@ -1,0 +1,87 @@
+package.json
+  s_4987b198c9213b::t_54f6678ce2c2b8 13
+src/features/daily-feed/components/VirtualFeedList.jsx
+  s_4987b198c9213b::t_abec8ff71429f7 1-14,19-43
+  s_4987b198c9213b::t_97692d10e31ab3 15-18
+src/features/daily-feed/index.jsx
+  s_4987b198c9213b::t_aecff955a4d235 1,7
+  s_4987b198c9213b::t_2fdda3122cb25b 23-30
+  s_4987b198c9213b::t_b64f7feffcfba8 106
+src/features/daily-feed/components/LazyImage.jsx
+  s_4987b198c9213b::t_af2d20f783db43 1-49
+src/features/daily-feed/data/defaultSources.js
+  s_4987b198c9213b::t_33868c6ccb7cba 90-107
+  s_4987b198c9213b::t_50dc4508377432 14
+src/features/daily-feed/hooks/useFeed.js
+  s_4987b198c9213b::t_576b012bb02090 67,69,71-72,75-77
+  s_4987b198c9213b::t_bcfcb838529632 1,6-13,37-47,49-63,79-83,87-110,112,117-118,121-123,125-128,130-175,178-180,185,189,192-193,197,203-205,208,221,262-298
+  s_4987b198c9213b::t_94405d9602d6e7 27-36
+src/features/daily-feed/workers/rssParser.worker.js
+  s_4987b198c9213b::t_eb7df1967818e5 1-51
+src/features/daily-feed/services/cache.js
+  s_4987b198c9213b::t_56ddebde7b56c6 1,3-12,15-17,23-25,27,31,37-85,87-89,91,94-97,101-127
+src/shared/utils/fetchUtils.js
+  s_4987b198c9213b::t_d3b7e3668c6fba 1-60
+src/features/nutrition/services/spoonacular.js
+  s_4987b198c9213b::t_609d59f75f73b5 96-97
+  s_4987b198c9213b::t_966c71ee145d9c 8
+src/App.jsx
+  s_4987b198c9213b::t_7ddb70bd154e2b 1,10-43,51-52,62-87,122-128,138-160
+src/shared/perf.js
+  s_4987b198c9213b::t_a9543a5b4a21df 1-33
+src/features/daily-feed/services/fetchWeather.js
+  s_4987b198c9213b::t_a4185970393736 3-4
+  s_4987b198c9213b::t_17cac3acd1773b 50
+src/features/nutrition/services/usda.js
+  s_4987b198c9213b::t_b04a5b59e90aae 19
+  s_4987b198c9213b::t_95bf2a5748f1cd 6
+src/features/daily-feed/components/FeedItemCard.jsx
+  s_4987b198c9213b::t_fd29082b82f18a 1,4,6-9,30,60-65
+src/features/daily-feed/services/fetchRSS.js
+  s_4987b198c9213b::t_c15346d9cd569a 81,85-93,99-128
+  s_4987b198c9213b::t_baca8abf2bc9ff 35
+  s_4987b198c9213b::t_c423bec4d9a100 4-8
+src/features/daily-feed/services/fetchReddit.js
+  s_4987b198c9213b::t_50677805038b4e 1-3,8
+src/features/nutrition/services/mealdb.js
+  s_4987b198c9213b::t_c972f4ceff4cc9 65,72
+  s_4987b198c9213b::t_cc3f161cf02beb 12
+src/shared/storage/idb.js
+  s_4987b198c9213b::t_0820b7756cec1d 1-87
+vite.config.js
+  s_4987b198c9213b::t_6c4b509dfa84b6 33,58-98
+api/ai.js
+  s_4987b198c9213b::t_18106a6cdb7406 1-112,115-136
+  s_4987b198c9213b::t_7e813b8b5fdbf2 114
+eslint.config.js
+  s_4987b198c9213b::t_8932fc0f145154 21-28
+src/shared/components/BottomNav.jsx
+  s_4987b198c9213b::t_f3f0b11969ea2d 24
+  s_4987b198c9213b::t_6d43a2d23d40f7 10
+src/shared/services/ai.js
+  h_393736555a1231 1-30,32-48
+  s_4987b198c9213b::t_3005600408dd04 31
+package-lock.json
+  ai_agent 11,5086-5088,7911-7917,8059-8064
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "44d8faa42155ebe128db729210a3f7fe7d087c2d",
+  "prompts": {},
+  "humans": {
+    "h_393736555a1231": {
+      "author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_4987b198c9213b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c4f8ff11-e98e-4435-97b1-41480ed25bee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "nicola-amendolara <amenick91@gmail.com>"
+    }
+  }
+}
