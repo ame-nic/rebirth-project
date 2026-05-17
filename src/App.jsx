@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from "react";
 import { C, FONT, appWrap } from "./shared/design/tokens.js";
 import { todayStr } from "./shared/utils/date.js";
-import { storageLoad, storageSave } from "./shared/storage/index.js";
+import { storageLoad, storageSave, syncFromRemote, pushToRemote } from "./shared/storage/index.js";
 import BottomNav from "./shared/components/BottomNav.jsx";
 import ErrorBoundary from "./shared/components/ErrorBoundary.jsx";
 import Toast from "./shared/components/Toast.jsx";
@@ -29,6 +29,7 @@ const FeedTab      = lazy(() => import("./features/daily-feed/index.jsx"));
 const HabitsTab    = lazy(() => import("./features/habits/index.jsx"));
 const HealthScreen   = lazy(() => import("./features/health/HealthScreen.jsx"));
 const AlterEgoScreen = lazy(() => import("./features/alterEgo/AlterEgoScreen.jsx"));
+const SettingsSheet  = lazy(() => import("./shared/components/SettingsSheet.jsx"));
 
 // Used by BottomNav for preload-on-hover. Triggering the dynamic import
 // here primes the chunk so the tap transition feels instant.
@@ -60,6 +61,7 @@ export default function App() {
   const [loading,       setLoading]       = useState(true);
   const [healthOpen,    setHealthOpen]    = useState(false);
   const [alterEgoOpen,  setAlterEgoOpen]  = useState(false);
+  const [settingsOpen,  setSettingsOpen]  = useState(false);
 
   // Feed / Habits / Health / Readiness all live at root: cross-tab
   // affordances need their state regardless of which tab is active.
@@ -71,10 +73,35 @@ export default function App() {
   const alterEgo  = useAlterEgo();
 
   useEffect(() => {
-    storageLoad("workoutLog_v5", []).then((v) => {
+    let cancelled = false;
+    async function bootstrap() {
+      // First boot after the Upstash migration: pull anything the user
+      // already has on the server, and if there's nothing yet, push the
+      // existing localStorage data up so the device isn't the only copy.
+      try {
+        const migrated = localStorage.getItem("_upstash_migration_done");
+        if (!migrated) {
+          const pulled = await syncFromRemote();
+          if (pulled === 0) await pushToRemote();
+          localStorage.setItem("_upstash_migration_done", "true");
+        } else {
+          // Background refresh — don't block the splash. Next reload
+          // reflects whatever Upstash had at this moment.
+          syncFromRemote().catch(() => {});
+        }
+      } catch (err) {
+        // Sync should never block boot. localStorage is still the
+        // immediate cache, so the app keeps working without Upstash.
+        console.warn("[App] storage bootstrap failed:", err);
+      }
+
+      const v = await storageLoad("workoutLog_v5", []);
+      if (cancelled) return;
       setWorkoutLog(v);
       setLoading(false);
-    });
+    }
+    bootstrap();
+    return () => { cancelled = true; };
   }, []);
 
   // Delayed cache prefetch — warm weather + top sources after the first
@@ -205,6 +232,7 @@ export default function App() {
               readiness={readiness}
               alterEgo={alterEgo}
               onOpenAlterEgo={() => setAlterEgoOpen(true)}
+              onOpenSettings={() => setSettingsOpen(true)}
             />
           </ErrorBoundary>
         )}
@@ -239,6 +267,11 @@ export default function App() {
           habits={habits.habits}
           onDismiss={alterEgo.dismissCelebration}
         />
+      )}
+      {settingsOpen && (
+        <Suspense fallback={null}>
+          <SettingsSheet onClose={() => setSettingsOpen(false)} />
+        </Suspense>
       )}
     </div>
   );

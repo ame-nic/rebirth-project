@@ -12,6 +12,7 @@ import ExpertAssessmentCard from "../wellness/components/ExpertAssessmentCard.js
 import AlterEgoGreeting from "../alterEgo/components/AlterEgoGreeting.jsx";
 import AlterEgoWeeklyCard from "../alterEgo/components/AlterEgoWeeklyCard.jsx";
 import { computeWeekStats as computeAEWeekStats } from "../alterEgo/utils/weekStats.js";
+import OfflineBanner from "../../shared/components/OfflineBanner.jsx";
 
 function computeStreak(workoutLog) {
   let streak = 0;
@@ -420,7 +421,7 @@ export function ActiveWorkout({ session, onFinish, onCancel }) {
   );
 }
 
-export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits, health, onOpenHealth, readiness, alterEgo, onOpenAlterEgo }) {
+export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, habits, onOpenHabits, health, onOpenHealth, readiness, alterEgo, onOpenAlterEgo, onOpenSettings }) {
   const todaySession = getTodaySession();
   const today = todayStr();
   const todayLog = workoutLog.find((w) => w.date === today);
@@ -481,8 +482,23 @@ export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, ha
       )}
 
       <div style={{ background: C.surf, borderBottom: `1px solid ${C.border}`, padding: "20px 18px 16px" }}>
-        <div style={{ fontSize: 10, color: C.txtSec, letterSpacing: 1.5, fontFamily: FONT, marginBottom: 6, fontWeight: 500, textTransform: "uppercase" }}>
-          <span style={{ color: C.A }}>§</span>&nbsp;&nbsp;{DAY_IT[new Date().getDay()].toUpperCase()} · {new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long" })}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+          <div style={{ fontSize: 10, color: C.txtSec, letterSpacing: 1.5, fontFamily: FONT, fontWeight: 500, textTransform: "uppercase" }}>
+            <span style={{ color: C.A }}>§</span>&nbsp;&nbsp;{DAY_IT[new Date().getDay()].toUpperCase()} · {new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long" })}
+          </div>
+          {onOpenSettings && (
+            <button
+              onClick={onOpenSettings}
+              aria-label="Impostazioni"
+              style={{
+                background: "none", border: "none", color: C.txtMute,
+                cursor: "pointer", padding: 4, marginRight: -4,
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+              }}
+            >
+              <i className="ph ph-gear-six" style={{ fontSize: 18 }} />
+            </button>
+          )}
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
           <div style={{ fontSize: 22, color: C.txt, lineHeight: 1.15, letterSpacing: "-0.02em" }}>{headerMsg}</div>
@@ -519,6 +535,8 @@ export default function TodayTab({ workoutLog, onStartWorkout, onLogCalcetto, ha
       </div>
 
       <div style={{ padding: "14px 14px 0" }}>
+        <OfflineBanner />
+
         <AlterEgoGreeting alterEgo={alterEgo?.alterEgo} onOpen={onOpenAlterEgo} />
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, marginBottom: 14 }}>
